@@ -35,13 +35,15 @@ module light_headband() {
 // what we found above (angles, positions determined empirically)
 pin_angle_distances = [ [21.5, 80], [-21.5, 80], [76, 93], [-76, 93]];
 
-module shield_pin_vertical_cutout() {
-  translate([0, 0, -10/2]) cube([10, 15, 10], center=true);
+module shield_pin_vertical_cutout(extra=0) {
+  b_size = 10 + extra;
+  translate([0, 0, -10+b_size/2]) cube([b_size, 15, b_size], center=true);
 }
 
 // A region of interest at the given angle and distance.
-module roi_block(angle, dist) {
-  rotate([0, 0, angle]) translate([0, dist, 0]) shield_pin_vertical_cutout();
+module roi_block(angle, dist, extra=0) {
+  rotate([0, 0, angle]) translate([0, dist, 0])
+    shield_pin_vertical_cutout(extra);
 }
 
 module print_shield() {
@@ -65,7 +67,7 @@ module print_shield() {
   // we were 'operating' on: that is now filled with our construct above.
   difference() {
     light_headband();
-    for (x = pin_angle_distances) roi_block(x[0], x[1]);
+    for (x = pin_angle_distances) roi_block(x[0], x[1], extra=-1);
   }
 }
 
