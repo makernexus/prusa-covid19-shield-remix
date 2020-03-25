@@ -11,3 +11,10 @@ git clone https://github.com/hzeller/prusa-covid19-shield-remix.git
 cd prusa-covid19-shield-remix
 prusa-slicer prusa-covid-shield-remix.3mf
 ```
+
+For building, use the Makefile to create all the artifacts from the *.scad
+file
+
+```
+make
+```
