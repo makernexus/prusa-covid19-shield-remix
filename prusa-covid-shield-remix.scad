@@ -35,7 +35,7 @@ module cutout_block_bottom(angle, dist) { _cutout_block(angle, dist, false); }
 // The angle and distance the pins are roughly. There we just move them
 // up and replace the bottom part with what we found above.
 // (determined empirically)
-pin_angle_distances = [ [21.5, 80], [-21.5, 80], [76, 95], [-76, 95]];
+pin_angle_distances = [ [21.5, 80], [-21.5, 80], [76, 93], [-76, 93]];
 
 module print_shield() {
   // Cut out the area with the pins and move them up.
@@ -63,4 +63,5 @@ module support_modifier() {
      for (x = pin_angle_distances) cutout_block_bottom(x[0], x[1]);
 }
 
+//support_modifier();
 print_shield();
