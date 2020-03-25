@@ -1,8 +1,6 @@
 MakerNexus local modifications
 ------------------------------
 
-***NOT SETTLED DESIGN YET. WORK IN PROGRESS.***
-
 At [MakerNexus], we're working on making as many face-shields as possible;
 They will be in dire demand very soon and we got requests of thousands of them.
 MakerNexus is coordinating the contact with the local hospitals and
