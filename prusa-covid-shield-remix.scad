@@ -45,31 +45,33 @@ module roi_block(angle, dist) {
 }
 
 module print_shield() {
-// Cut out the area with the pins and move them up.
+  // Cut out the area with the pins and move them up.
   translate([0, 0, vertical_pin_shift]) intersection() {
     light_headband();
     for (x = pin_angle_distances) roi_block(x[0], x[1]);
   }
 
-// Now, take the _top_ part of the band by doing the same cut-out ont
-// the same band lying on its back and use that to fill the hole at
-// the bottom left from the pin being shifted up.
-// Using the rotational cut-out means we capture the taper the band
-// has and replicate it fully at the bottom.
+  // Now, take the _top_ part of the band by doing the same cut-out ont
+  // the same band lying on its back and use that to fill the hole at
+  // the bottom left from the pin being shifted up.
+  // Using the rotational cut-out means we capture the taper the band
+  // has and replicate it fully at the bottom.
   intersection() {
     rotate([0, 180, 0]) light_headband();
     for (x = pin_angle_distances) roi_block(x[0], x[1]);
   }
 
-// Combine the above that with the shield, but leave out the pin area
-// we were 'operating' on: that is now filled with our construct above.
+  // Combine the above that with the shield, but leave out the pin area
+  // we were 'operating' on: that is now filled with our construct above.
   difference() {
     light_headband();
     for (x = pin_angle_distances) roi_block(x[0], x[1]);
   }
 }
 
-// Places where we need support.
+// Places where we need support are the places where our region-of-interest
+// blocks are. We use the STL generated from these to tell Prusa-Slicer where
+// we want the support.
 module support_modifier() {
   for (x = pin_angle_distances) roi_block(x[0], x[1]);
 }
