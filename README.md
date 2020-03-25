@@ -64,5 +64,5 @@ https://www.prusaprinters.org/prints/25857-prusa-protective-face-shield-rc2
 
 [MakerNexus]: https://www.makernexus.com/
 [prusa-rc2]: https://www.prusaprinters.org/prints/25857-prusa-protective-face-shield-rc2
-[CC-BY-NC]: https://creativecommons.org/licenses/by-nc/2.0/
+[CC-BY-NC]: https://creativecommons.org/licenses/by-nc/4.0/
 [project page]: http://makernexuswiki.com/index.php?title=3D_printed_face_shields
