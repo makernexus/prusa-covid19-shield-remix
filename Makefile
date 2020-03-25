@@ -10,3 +10,6 @@ prusa-covid-shield-remix-%.scad : prusa-covid-shield-remix.scad
 
 %.stl: %.scad
 	openscad -o $@ -d $@.deps $<
+
+clean:
+	rm -f $(ALL_OUTPUT)
