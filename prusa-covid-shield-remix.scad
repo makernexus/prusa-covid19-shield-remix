@@ -27,7 +27,11 @@ module light_headband() {
       // Punch holes exect in places of need of stabiliity.
       if (abs(i) != 2) hole_punch(i * angle_distance);
     }
-    translate([85.5, -60, -4]) rotate([90, 0, -90]) linear_extrude(height=10) text(version, size=8, halign="right", font="style:Bold");
+    translate([85.4, -38, 0.5]) {
+      rotate([90, 0, -90]) linear_extrude(height=10) text("M", size=5, halign="center", font="style:Bold");
+      translate([0, 0, -7]) rotate([90, 0, -90]) linear_extrude(height=10) text("N", size=6, halign="center", font="style:Bold");
+    }
+    translate([85.7, -60, -4]) rotate([90, 0, -90]) linear_extrude(height=10) text(version, size=8, halign="right", font="style:Bold");
   }
 }
 
