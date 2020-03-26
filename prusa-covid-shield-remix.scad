@@ -6,6 +6,7 @@
 
 // mm to move the pin up
 vertical_pin_shift=7;  // mm
+version="1.1";   // Keep it short, so that it only is on the flat end.
 
 module baseline_headband() {
   // The distribted RC2 STL file is pretty shifted...
@@ -26,6 +27,7 @@ module light_headband() {
       // Punch holes exect in places of need of stabiliity.
       if (abs(i) != 2) hole_punch(i * angle_distance);
     }
+    translate([85.5, -60, -4]) rotate([90, 0, -90]) linear_extrude(height=10) text(version, size=8, halign="right", font="style:Bold");
   }
 }
 
