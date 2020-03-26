@@ -5,13 +5,13 @@
 //     of the shield-punches
 
 $fn=32;
+e=0.01;
 
-// mm to move the pin up
-vertical_pin_shift=7;  // mm
 version="1.1";   // Keep it short, so that it only is on the flat end.
 
-
-e=0.01;
+// mm to move the pin up
+vertical_pin_shift = 7;  // mm
+stack_distance = 20.4;
 
 module baseline_headband() {
   // The distribted RC2 STL file is pretty shifted...
@@ -40,10 +40,10 @@ module light_headband() {
   }
 }
 
-module support_column(angle=0, dist=0, last=false, wall_thick=0.7) {
+module support_column(angle=0, dist=0, last=false, wall_thick=0.8) {
   r=5;
   support_platform=vertical_pin_shift-0.3;
-  h=last ? support_platform : 20.3;
+  h=last ? support_platform : stack_distance;
   rotate([0, 0, angle]) translate([0, dist, -10])
     rotate([0, 0, 180]) {
     difference() {
@@ -113,7 +113,6 @@ module support_modifier() {
 }
 
 module print_stack(count=2) {
-  stack_distance=20.4;
   for (i = [1:1:count]) {
     translate([0, 0, i*stack_distance]) print_shield(is_last=i==count);
   };
