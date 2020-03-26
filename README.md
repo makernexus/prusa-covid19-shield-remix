@@ -32,8 +32,8 @@ Choose what bests fits your circumstances. GCode is 'ready to go', 3mf allows
 printer adjustments, *.stl allows to use in your own slicer.
 
   * [GCode for MK3S printer for PETG 0.3mm, 3 shells, 30% infill](https://github.com/hzeller/prusa-covid19-shield-remix/raw/master/prusa-covid-shield-remix-print_shield_0.3mm_PETG_MK3S.gcode)
-  * [3MF file to load in slicer](https://github.com/hzeller/prusa-covid19-shield-remix/raw/master/prusa-covid-shield-remix.3mf). Contains support-material setup. It works in a prusa-slicer, but simplify3d has trouble interpreting the support material instructions.
-  * [The STL file](https://github.com/hzeller/prusa-covid19-shield-remix/raw/master/prusa-covid-shield-remix-print_shield.stl) ([watch it here](https://github.com/hzeller/prusa-covid19-shield-remix/blob/master/prusa-covid-shield-remix-print_shield.stl))
+  * [3MF file to load in slicer](https://github.com/hzeller/prusa-covid19-shield-remix/raw/master/prusa-covid-shield-remix.3mf). Contains support-material setup. It works in a [prusa-slicer] (I use version 2.2.0), but I got report that simplify3d has trouble interpreting the support material instructions.
+  * [The STL file](https://github.com/hzeller/prusa-covid19-shield-remix/raw/master/prusa-covid-shield-remix-print_shield.stl) ([watch it here](./prusa-covid-shield-remix-print_shield.stl)). If you use this file in your slicer, you have to add support under the face-shield pins manually (there is also the [`prusa-covid-shield-remix-support_modifier.stl`](./prusa-covid-shield-remix-support_modifier.stl) file which provides the exact block places where supports need to be if your slicer can use that).
 
 ### Code
 
@@ -78,3 +78,4 @@ https://www.prusaprinters.org/prints/25857-prusa-protective-face-shield-rc2
 [prusa-rc2]: https://www.prusaprinters.org/prints/25857-prusa-protective-face-shield-rc2
 [CC-BY-NC]: https://creativecommons.org/licenses/by-nc/4.0/
 [project page]: http://makernexuswiki.com/index.php?title=3D_printed_face_shields
+[prusa-slicer]: https://www.prusa3d.com/prusaslicer/
