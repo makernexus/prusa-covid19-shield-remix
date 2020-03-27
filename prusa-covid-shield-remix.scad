@@ -4,6 +4,11 @@
 //   * Move the shield buttons up so that there is material behind the openings
 //     of the shield-punches
 
+$fn=32;
+e=0.01;
+
+provide_pin_support = true;
+
 // mm to move the pin up
 vertical_pin_shift=7;  // mm
 version="1.1";   // Keep it short, so that it only is on the flat end.
@@ -32,6 +37,27 @@ module light_headband() {
       translate([0, 0, -7]) rotate([90, 0, -90]) linear_extrude(height=10) text("N", size=6, halign="center", font="style:Bold");
     }
     translate([85.7, -60, -4]) rotate([90, 0, -90]) linear_extrude(height=10) text(version, size=8, halign="right", font="style:Bold");
+  }
+}
+
+// Support for the pins.
+module support_column(angle=0, dist=0, last=true, wall_thick=0.75) {
+  r=5;
+  support_platform=vertical_pin_shift-0.3;
+  h=last ? support_platform : stack_distance;
+  color("yellow") rotate([0, 0, angle]) translate([0, dist, -10])
+    rotate([0, 0, 180]) {
+    difference() {
+      union() {
+        cylinder(r=r, h=h);
+        //translate([-r, 0, 0]) cube([2*r, 0.5*r, h]);
+      }
+      translate([0, 0, -e]) union() {
+        translate([0, 0, -0.5]) cylinder(r=r-wall_thick, h=h+2*e);
+        translate([-r, +wall_thick, 0]) cube([2*r, r, h+2*e]);
+      }
+    }
+    //translate([-r, -1, support_platform-0.5]) cube([2*r, 3, 0.5]);
   }
 }
 
@@ -75,6 +101,11 @@ module print_shield() {
     light_headband();
     for (x = pin_angle_distances) roi_block(x[0], x[1], extra=-1);
   }
+
+  // Add support for the pins.
+  if (provide_pin_support) {
+    for (x = pin_angle_distances) support_column(x[0], x[1]+3);
+  }
 }
 
 // Places where we need support are the places where our region-of-interest
@@ -86,3 +117,4 @@ module support_modifier() {
 
 print_shield();
 //support_modifier();
+//support_column();
