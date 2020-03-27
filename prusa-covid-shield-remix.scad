@@ -12,7 +12,7 @@ version="1.1";   // Keep it short, so that it only is on the flat end.
 // mm to move the pin up
 vertical_pin_shift = 7;  // mm
 band_high=20;
-stack_separation=0.3;
+stack_separation=0.6;
 stack_distance = band_high + stack_separation;
 
 module baseline_headband() {
@@ -42,7 +42,7 @@ module light_headband() {
   }
 }
 
-module support_column(angle=0, dist=0, last=false, wall_thick=0.8) {
+module support_column(angle=0, dist=0, last=false, wall_thick=0.75) {
   r=5;
   support_platform=vertical_pin_shift-0.3;
   h=last ? support_platform : stack_distance;
@@ -115,7 +115,7 @@ module support_modifier() {
 }
 
 // Print a stack of face-shields.
-module print_stack(count=2) {
+module print_stack(count=4) {
   for (i = [0:1:count-e]) {
     translate([0, 0, i*stack_distance]) {
       is_last = (i == (count - 1));
@@ -125,8 +125,8 @@ module print_stack(count=2) {
   };
 }
 
-module perforation_fan(wide=0.8, high=stack_separation) {
-  for (a = [-40:10:180+40]) rotate([0, 0, a]) cube([120, wide, high]);
+module perforation_fan(wide=0.75, high=stack_separation) {
+  for (a = [-40:8:180+40]) rotate([0, 0, a]) cube([120, wide, high]);
 }
 module perforation() {
   h=stack_separation;
