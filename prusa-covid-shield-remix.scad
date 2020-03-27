@@ -7,6 +7,18 @@
 $fn=32;
 e=0.01;
 
+// Generate supports directly in STL. This is a hit-and-miss so far.
+// The pin support works quite nicely, and in particular for larger
+// stacks, this is nicer than support generated from the slicer.
+//
+// The stack separation support however is, uhm, suboptimal
+// at this time. I got nicer results having an 'air-layer' and
+// break off at the decreased layer adhesion there.
+provide_pin_support = true;
+provide_stack_separation_support= true;
+
+stack_height=2;
+
 version="1.1";   // Keep it short, so that it only is on the flat end.
 
 // mm to move the pin up
@@ -68,15 +80,16 @@ module support_column(angle=0, dist=0, last=false, wall_thick=0.75) {
 // what we found above (angles, positions determined empirically)
 pin_angle_distances = [ [21.5, 80], [-21.5, 80], [76, 93], [-76, 93]];
 
-module shield_pin_vertical_cutout(extra=0) {
-  b_size = 10 + extra;
-  translate([0, 0, -10+b_size/2]) cube([b_size, 15, b_size], center=true);
+module shield_pin_vertical_cutout(extra=0, full_height=false) {
+  b_wide = 10 + extra;
+  b_height = (full_height ? 20 : 10) + extra;
+  translate([0, 0, -10+b_height/2]) cube([b_wide, 15, b_height], center=true);
 }
 
 // A region of interest at the given angle and distance.
-module roi_block(angle, dist, extra=0) {
+module roi_block(angle, dist, extra=0, full_height=false) {
   rotate([0, 0, angle]) translate([0, dist, 0])
-    shield_pin_vertical_cutout(extra);
+    shield_pin_vertical_cutout(extra, full_height);
 }
 
 module print_shield(add_support=true, is_last=true) {
@@ -104,23 +117,44 @@ module print_shield(add_support=true, is_last=true) {
   }
 
   // Add support.
-  for (x = pin_angle_distances) support_column(x[0], x[1]+3, last=is_last);
+  if (provide_pin_support) {
+    for (x = pin_angle_distances) support_column(x[0], x[1]+3, last=is_last);
+  }
 }
 
 // Places where we need support are the places where our region-of-interest
 // blocks are. We use the STL generated from these to tell Prusa-Slicer where
 // we want the support. This is used for the non-stack version currently.
-module support_modifier() {
-  for (x = pin_angle_distances) roi_block(x[0], x[1]);
+module support_modifier(count=stack_height) {
+    for (i = [0:1:count-e]) {
+      is_last = (i == (count - 1));
+      translate([0, 0, i*stack_distance]) {
+        for (x = pin_angle_distances)
+          roi_block(x[0], x[1], full_height=!is_last, extra=stack_separation);
+      }
+    }
+    // Support in the layers between the bands.
+    // Unfortunately, this is interpreted wrongly by the support-enforce
+    // feature in prusa-slicer. So disabling it now.
+    if (false) {
+      for (i = [1:1:count-e]) {
+        translate([0, 0, i*stack_distance-10-stack_separation]) {
+          translate([0, -40, 0]) difference() {
+            cylinder(r=120, h=stack_separation);
+            translate([-120, -130, -e]) cube([240, 100, stack_separation+2*e]);
+          }
+        }
+      }
+    }
 }
 
 // Print a stack of face-shields.
-module print_stack(count=4) {
+module print_stack(count=stack_height) {
   for (i = [0:1:count-e]) {
     translate([0, 0, i*stack_distance]) {
       is_last = (i == (count - 1));
       print_shield(is_last=is_last);
-      if (!is_last) perforation();
+      if (provide_stack_separation_support && !is_last) perforation();
     }
   };
 }
