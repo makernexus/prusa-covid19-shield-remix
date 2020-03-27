@@ -11,7 +11,9 @@ version="1.1";   // Keep it short, so that it only is on the flat end.
 
 // mm to move the pin up
 vertical_pin_shift = 7;  // mm
-stack_distance = 20.4;
+band_high=20;
+stack_separation=0.3;
+stack_distance = band_high + stack_separation;
 
 module baseline_headband() {
   // The distribted RC2 STL file is pretty shifted...
@@ -44,7 +46,7 @@ module support_column(angle=0, dist=0, last=false, wall_thick=0.8) {
   r=5;
   support_platform=vertical_pin_shift-0.3;
   h=last ? support_platform : stack_distance;
-  rotate([0, 0, angle]) translate([0, dist, -10])
+  color("yellow") rotate([0, 0, angle]) translate([0, dist, -10])
     rotate([0, 0, 180]) {
     difference() {
       union() {
@@ -77,7 +79,7 @@ module roi_block(angle, dist, extra=0) {
     shield_pin_vertical_cutout(extra);
 }
 
-module print_shield(is_last=true) {
+module print_shield(add_support=true, is_last=true) {
   // Cut out the area with the pins and move them up.
   translate([0, 0, vertical_pin_shift]) intersection() {
     light_headband();
@@ -107,19 +109,31 @@ module print_shield(is_last=true) {
 
 // Places where we need support are the places where our region-of-interest
 // blocks are. We use the STL generated from these to tell Prusa-Slicer where
-// we want the support.
+// we want the support. This is used for the non-stack version currently.
 module support_modifier() {
   for (x = pin_angle_distances) roi_block(x[0], x[1]);
 }
 
+// Print a stack of face-shields.
 module print_stack(count=2) {
-  for (i = [1:1:count]) {
-    translate([0, 0, i*stack_distance]) print_shield(is_last=i==count);
+  for (i = [0:1:count-e]) {
+    translate([0, 0, i*stack_distance]) {
+      is_last = (i == (count - 1));
+      print_shield(is_last=is_last);
+      if (!is_last) perforation();
+    }
   };
 }
 
+module perforation_fan(wide=0.8, high=stack_separation) {
+  for (a = [-40:10:180+40]) rotate([0, 0, a]) cube([120, wide, high]);
+}
+module perforation() {
+  h=stack_separation;
+  color("yellow") render() translate([0, 0, h]) intersection() {
+    baseline_headband();
+    translate([0, 0, 10-h]) perforation_fan(high=h);
+  }
+}
 
-//support_modifier();
-//for (x = pin_angle_distances) support_column(x[0], x[1]+3);
-//support_column();
 print_stack();
