@@ -7,37 +7,26 @@
 $fn=32;
 e=0.01;
 
-do_front_punch_holes = true;   // For lightness
-do_back_punch_holes=true;
-thinner_band=false;
-provide_pin_support = false;    // Printing support.
-
-band_thick=thinner_band ? 15 : 20;
-front_hole_r = thinner_band ? 4 : 6;
+front_hole_r = 6;   // TODO: if we use that with thinner bands: needs adjust
 
 // mm to move the pin up
 vertical_pin_shift=7;  // mm
-version="⬡1";   // Keep it short, so that it only is on the flat end.
 
 module baseline_headband() {
-  // The distribted RC2 STL file is pretty shifted...
+  // The distribted STL file is pretty shifted...
   translate([7.8, 9, 2.5]) import("baseline/covid19_headband_rc3.stl", convexity=10);
 }
 
-module maker_nexus_baseline_headband() {
+module maker_nexus_baseline_headband(version_text, height_scale=1.0) {
   difference() {
-    if (thinner_band) {
-      scale([1, 1, 0.75]) baseline_headband();
-    } else {
-      baseline_headband();
-    }
+    scale([1, 1, height_scale]) baseline_headband();
 
     // Maker nexus version number.
     translate([85.4, -38, 0.5]) {
       rotate([90, 0, -90]) linear_extrude(height=10) text("M", size=5, halign="center", font="style:Bold");
       translate([0, 0, -7]) rotate([90, 0, -90]) linear_extrude(height=10) text("N", size=6, halign="center", font="style:Bold");
     }
-    translate([85.7, -60, -4]) rotate([90, 0, -90]) linear_extrude(height=10) text(version, size=8, halign="right", font="style:Bold");
+    translate([85.7, -60, -4]) rotate([90, 0, -90]) linear_extrude(height=10) text(version_text, size=8, halign="right", font="style:Bold");
   }
 }
 
@@ -47,17 +36,19 @@ module hole_punch(angle=0, r=front_hole_r, dist=70) {
 }
 
 // A headband that is lighter due to cutout-holes
-module light_headband() {
+module light_headband(version_text="", h_scale=1,
+                      do_front_punches=true, do_back_punches=true) {
   angle_distance=11;  // degrees at which we punch our weight-reduce hole.
   difference() {
-    maker_nexus_baseline_headband();
-    if (do_front_punch_holes) {
+    maker_nexus_baseline_headband(version_text=version_text,
+                                  height_scale=h_scale);
+    if (do_front_punches) {
       for (i = [-5:1:+5]) {
         // Punch holes exect in places of need of stabiliity.
         if (abs(i) != 2) hole_punch(i * angle_distance, r=front_hole_r, dist=70);
       }
 
-      if (do_back_punch_holes) {
+      if (do_back_punches) {
         translate([0, -40, 0]) for (i = [-7:1:+7]) {
           hole_punch(i * 10, r=front_hole_r-1, dist=68);
         }
@@ -67,9 +58,11 @@ module light_headband() {
 }
 
 // Support for the pins.
-module support_column(angle=0, dist=0, last=true, wall_thick=0.75) {
+module support_column(angle=0, dist=0, last=true, wall_thick=0.75,
+                      is_thin=false) {
   r=5;
-  support_platform=vertical_pin_shift-0.3 - (thinner_band ? 2.5 : 0);
+  band_thick = is_thin ? 15 : 20;
+  support_platform=vertical_pin_shift-0.3 - (is_thin ? 2.5 : 0);
   h=last ? support_platform : stack_distance;
   color("yellow") rotate([0, 0, angle]) translate([0, dist, -band_thick/2])
     rotate([0, 0, 180]) {
@@ -104,7 +97,8 @@ module roi_block(angle, dist, extra=0) {
     shield_pin_vertical_cutout(extra);
 }
 
-module print_shield() {
+module print_shield(version_text, do_punches=true, pin_support=false,
+                    thin=false) {
   // Cut out the area with the pins and move them up.
   translate([0, 0, vertical_pin_shift]) intersection() {
     baseline_headband();  // Baseline has the right sized pins.
@@ -117,20 +111,21 @@ module print_shield() {
   // Using the rotational cut-out means we capture the taper the band
   // has and replicate it fully at the bottom.
   intersection() {
-    rotate([0, 180, 0]) light_headband();
+    rotate([0, 180, 0]) light_headband(h_scale=thin ? 0.75 : 1.0);
     for (x = pin_angle_distances) roi_block(x[0], x[1]);
   }
 
   // Combine the above that with the shield, but leave out the pin area
   // we were 'operating' on: that is now filled with our construct above.
   difference() {
-    light_headband();
+    light_headband(version_text, h_scale=thin ? 0.75 : 1.0,
+                   do_front_punches=do_punches, do_back_punches=do_punches);
     for (x = pin_angle_distances) roi_block(x[0], x[1], extra=-1);
   }
 
   // Add support for the pins.
-  if (provide_pin_support) {
-    for (x = pin_angle_distances) support_column(x[0], x[1]+3);
+  if (pin_support) {
+    for (x = pin_angle_distances) support_column(x[0], x[1]+3, is_thin=thin);
   }
 }
 
@@ -141,5 +136,17 @@ module support_modifier() {
   for (x = pin_angle_distances) roi_block(x[0], x[1]);
 }
 
-// For visualization. The Makefile creates all the relevant artifacts.
-print_shield();
+module normal_shield_no_support() {
+  print_shield("⬡1", do_punches=true, pin_support=false);
+}
+module normal_shield_with_support() {
+  print_shield("⬡1", do_punches=true, pin_support=true);
+}
+module short_shield_no_support() {
+  print_shield("s1", do_punches=false, pin_support=false, thin=true);
+}
+module short_shield_with_support() {
+  print_shield("s1", do_punches=false, pin_support=true, thin=true);
+}
+
+short_shield_with_support();
