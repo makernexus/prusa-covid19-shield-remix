@@ -77,7 +77,13 @@ module support_column(angle=0, dist=0, last=true, wall_thick=0.75,
         translate([-(r-wall_thick), 0, 0]) cube([2*(r-wall_thick), r, h+2*e]);
       }
     }
+    // Top part.
     translate([-r, -0.5, support_platform-level_thick]) cube([2*r, 3, level_thick]);
+    // Some stability foot.
+    intersection() {
+      translate([-15/2, -7.5, 0]) cube([15, 10, 1]);
+      cylinder(r=7, h=0.3);
+    }
   }
 }
 
@@ -138,16 +144,16 @@ module support_modifier() {
 }
 
 module normal_shield_no_support() {
-  print_shield("⬡2", do_punches=true, pin_support=false);
+  print_shield("⬡3", do_punches=true, pin_support=false);
 }
 module normal_shield_with_support() {
-  print_shield("⬡2", do_punches=true, pin_support=true);
+  print_shield("⬡3", do_punches=true, pin_support=true);
 }
 module short_shield_no_support() {
-  print_shield("s2", do_punches=false, pin_support=false, thin=true);
+  print_shield("s3", do_punches=false, pin_support=false, thin=true);
 }
 module short_shield_with_support() {
-  print_shield("s2", do_punches=false, pin_support=true, thin=true);
+  print_shield("s3", do_punches=false, pin_support=true, thin=true);
 }
 
 normal_shield_with_support();
