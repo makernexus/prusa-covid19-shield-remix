@@ -62,17 +62,11 @@ A 3mf file is provided, so it can be loaded into slicer right away:
 ```
 git clone https://github.com/hzeller/prusa-covid19-shield-remix.git
 cd prusa-covid19-shield-remix
-prusa-slicer prusa-covid-shield-remix.3mf
+prusa-slicer normal_shield.3mf
 ```
 
-Support is needed, but only minimally, and it breaks off easily. The STL for
-the support enforcers is also generated from the OpenSCAD file.
-
-![Showing weight reducing holes and support material](img/minimal-support.png)
-
 ### GCode
-There is also [gcode directly sliced for Prusa MK3(s)](prusa-covid-shield-remix-print_shield_0.3mm_PETG_MK3S.gcode) that prints two headbands on the
-build-plate.
+There is also gcode directly sliced for Prusa MK3(s). See above.
 
 ### Development
 
