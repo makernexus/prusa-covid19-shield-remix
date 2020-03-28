@@ -62,6 +62,7 @@ module support_column(angle=0, dist=0, last=true, wall_thick=0.75,
                       is_thin=false) {
   r=5;
   band_thick = is_thin ? 15 : 20;
+  level_thick=0.6;
   support_platform=vertical_pin_shift-0.3 - (is_thin ? 2.5 : 0);
   h=last ? support_platform : stack_distance;
   color("yellow") rotate([0, 0, angle]) translate([0, dist, -band_thick/2])
@@ -69,14 +70,14 @@ module support_column(angle=0, dist=0, last=true, wall_thick=0.75,
     difference() {
       union() {
         cylinder(r=r, h=h);
-        //translate([-r, 0, 0]) cube([2*r, 0.5*r, h]);
+        translate([-r, 0, 0]) cube([2*r, 0.5*r, h]);
       }
       translate([0, 0, -e]) union() {
-        translate([0, 0, -0.5]) cylinder(r=r-wall_thick, h=h+2*e);
-        translate([-r, +wall_thick, 0]) cube([2*r, r, h+2*e]);
+        translate([0, 0, -level_thick]) cylinder(r=r-wall_thick, h=h+2*e);
+        translate([-(r-wall_thick), 0, 0]) cube([2*(r-wall_thick), r, h+2*e]);
       }
     }
-    //translate([-r, -1, support_platform-0.5]) cube([2*r, 3, 0.5]);
+    translate([-r, -0.5, support_platform-level_thick]) cube([2*r, 3, level_thick]);
   }
 }
 
@@ -137,16 +138,16 @@ module support_modifier() {
 }
 
 module normal_shield_no_support() {
-  print_shield("⬡1", do_punches=true, pin_support=false);
+  print_shield("⬡2", do_punches=true, pin_support=false);
 }
 module normal_shield_with_support() {
-  print_shield("⬡1", do_punches=true, pin_support=true);
+  print_shield("⬡2", do_punches=true, pin_support=true);
 }
 module short_shield_no_support() {
-  print_shield("s1", do_punches=false, pin_support=false, thin=true);
+  print_shield("s2", do_punches=false, pin_support=false, thin=true);
 }
 module short_shield_with_support() {
-  print_shield("s1", do_punches=false, pin_support=true, thin=true);
+  print_shield("s2", do_punches=false, pin_support=true, thin=true);
 }
 
 normal_shield_with_support();
