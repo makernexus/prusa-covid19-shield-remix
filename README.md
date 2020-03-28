@@ -31,29 +31,25 @@ be and use that in the Prusa slicer as support modifier.
 Choose what bests fits your circumstances. GCode is 'ready to go', 3mf allows
 printer adjustments, *.stl allows to use in your own slicer.
 
-Simply get the [latest release](https://github.com/hzeller/prusa-covid19-shield-remix/releases). Current release is 1.0.
+Simply get the [latest release](https://github.com/hzeller/prusa-covid19-shield-remix/releases).
 
 #### Release content
- * [normal_shield_no_support.stl](./normal_shield_no_support.stl) and
-   [normal_shield_with_support.stl](./normal_shield_with_support.stl): normal
-   shield.
- * [short_shield_no_support.stl](./short_shield_no_support.stl) and
-   [short_shield_with_support.stl](./short_shield_with_support.stl): shield that
-   is 15mm instead of 20mm high for faster printing.
- * [normal_shield.3mf](./normal_shield.3mf) and
-   [short_shield.3mf](./short_shield.3mf) for direct use in prusa-slicer
+
+We distinguish between 'normal shield' and 'short shield': the shorter one
+only prints 15mm high (vs the normal 20mm) and does not have hexagons. It has
+*not* been tested yet if it is stable enough for holding the shield, so **for
+now only print the normal shield** until further notice.
+
  * [normal_shield_0.3mm_PETG_MK3S.gcode](./normal_shield_0.3mm_PETG_MK3S.gcode)
-   and
-   [short_shield_0.3mm_PETG_MK3S.gcode](./short_shield_0.3mm_PETG_MK3S.gcode)
-
-##### Previous release
-
-Files still there, but will be removed with next release to avoid confusion.
-
-  * prusa-covid-shield-remix-print_shield_0.3mm_PETG_MK3S.gcode: GCode for MK3S printer for PETG 0.3mm, 3 shells, 30% infill - You can use this directly in your Prusa MK3/MK3S printer. I change the print speed to 130% on the printer and the output is still excellent. Print time ~4:30h with 130% speed.
-  * prusa-covid-shield-remix.3m 3MF file to load in slicer. Contains support-material setup.
-  * [The STL file](./prusa-covid-shield-remix-print_shield.stl). It already has
-    support needed for the pins needed generated into the model.
+   GCode files ready to go on Prusa MK3(s) with
+   0.3mm layer, 100% infill, 240°C temp for PETG printing.
+ * [normal_shield.3mf](./normal_shield.3mf) for direct use in prusa-slicer
+   (or other slicers that understand 3mf files).
+ * [normal_shield_with_support.stl](./normal_shield_with_support.stl) and
+   [normal_no_with_support.stl](./normal_shield_no_support.stl): normal
+   shield. The *support* version has already a support column inncluded
+   for printing the pin. If you chose the *no support* version, you need
+   to use your slicer to create support for these.
 
 ### Code
 
