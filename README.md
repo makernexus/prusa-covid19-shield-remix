@@ -36,7 +36,8 @@ Simply get the [latest release](https://github.com/hzeller/prusa-covid19-shield-
 #### Release content
   * prusa-covid-shield-remix-print_shield_0.3mm_PETG_MK3S.gcode: GCode for MK3S printer for PETG 0.3mm, 3 shells, 30% infill - You can use this directly in your Prusa MK3/MK3S printer. I change the print speed to 130% on the printer and the output is still excellent. Print time ~4:30h with 130% speed.
   * prusa-covid-shield-remix.3m 3MF file to load in slicer. Contains support-material setup.
-  * [The STL file](./prusa-covid-shield-remix-print_shield.stl). If you use this file in your slicer, you have to add support under the face-shield pins manually (there is also the [`prusa-covid-shield-remix-support_modifier.stl`](./prusa-covid-shield-remix-support_modifier.stl) file which provides the exact block places where supports need to be if your slicer can use that).
+  * [The STL file](./prusa-covid-shield-remix-print_shield.stl). It already has
+    support needed for the pins needed generated into the model.
 
 #### Latest in github. Possibly next release.
  * [normal_shield_no_support.stl](./normal_shield_no_support.stl) and
