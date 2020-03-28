@@ -33,9 +33,23 @@ printer adjustments, *.stl allows to use in your own slicer.
 
 Simply get the [latest release](https://github.com/hzeller/prusa-covid19-shield-remix/releases). Current release is 1.0.
 
-  * <a href="https://github.com/hzeller/prusa-covid19-shield-remix/raw/master/prusa-covid-shield-remix-print_shield_0.3mm_PETG_MK3S.gcode" download>GCode for MK3S printer for PETG 0.3mm, 3 shells, 30% infill</a> - You can use this directly in your Prusa MK3/MK3S printer. I change the print speed to 130% on the printer and the output is still excellent. Print time ~4:30h with 130% speed.
-  * <a href="https://github.com/hzeller/prusa-covid19-shield-remix/raw/master/prusa-covid-shield-remix.3mf" download>3MF file to load in slicer</a>. Contains support-material setup. It works in a [prusa-slicer] (I use version 2.2.0), but I got report that simplify3d has trouble interpreting the support material instructions.
-  * [The STL file](./prusa-covid-shield-remix-print_shield.stl) (<a href="https://github.com/hzeller/prusa-covid19-shield-remix/raw/master/prusa-covid-shield-remix-print_shield.stl" download>Download it here</a>)). If you use this file in your slicer, you have to add support under the face-shield pins manually (there is also the [`prusa-covid-shield-remix-support_modifier.stl`](./prusa-covid-shield-remix-support_modifier.stl) file which provides the exact block places where supports need to be if your slicer can use that).
+#### Release content
+  * prusa-covid-shield-remix-print_shield_0.3mm_PETG_MK3S.gcode: GCode for MK3S printer for PETG 0.3mm, 3 shells, 30% infill - You can use this directly in your Prusa MK3/MK3S printer. I change the print speed to 130% on the printer and the output is still excellent. Print time ~4:30h with 130% speed.
+  * prusa-covid-shield-remix.3m 3MF file to load in slicer. Contains support-material setup.
+  * [The STL file](./prusa-covid-shield-remix-print_shield.stl). If you use this file in your slicer, you have to add support under the face-shield pins manually (there is also the [`prusa-covid-shield-remix-support_modifier.stl`](./prusa-covid-shield-remix-support_modifier.stl) file which provides the exact block places where supports need to be if your slicer can use that).
+
+#### Latest in github. Possibly next release.
+ * [normal_shield_no_support.stl](./normal_shield_no_support.stl) and
+   [normal_shield_with_support.stl](./normal_shield_with_support.stl): normal
+   shield, with upright hex-hole orientation.
+ * [short_shield_no_support.stl](./short_shield_no_support.stl) and
+   [short_shield_with_support.stl](./short_shield_with_support.stl): shield that
+   is 15mm instead of 20mm high for faster printing.
+ * [normal_shield.3mf](./normal_shield.3mf) and
+   [short_shield.3mf](./short_shield.3mf) for direct use in prusa-slicer
+ * [normal_shield_0.3mm_PETG_MK3S.gcode](./normal_shield_0.3mm_PETG_MK3S.gcode)
+   and
+   [short_shield_0.3mm_PETG_MK3S.gcode](./short_shield_0.3mm_PETG_MK3S.gcode)
 
 ### Code
 
