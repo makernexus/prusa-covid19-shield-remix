@@ -11,5 +11,8 @@ all: $(ALL_OUTPUT)
 %.stl: %.scad
 	openscad -o $@ -d $@.deps $<
 
+foo:
+	echo
+
 clean:
-	rm -f $(ALL_OUTPUT)
+	rm -f $(ALL_OUTPUT) $(ALL_OUTPUT:=.deps)
