@@ -42,7 +42,7 @@ Simply get the [latest release](https://github.com/hzeller/prusa-covid19-shield-
 #### Latest in github. Possibly next release.
  * [normal_shield_no_support.stl](./normal_shield_no_support.stl) and
    [normal_shield_with_support.stl](./normal_shield_with_support.stl): normal
-   shield, with upright hex-hole orientation.
+   shield.
  * [short_shield_no_support.stl](./short_shield_no_support.stl) and
    [short_shield_with_support.stl](./short_shield_with_support.stl): shield that
    is 15mm instead of 20mm high for faster printing.

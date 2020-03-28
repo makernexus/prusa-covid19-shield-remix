@@ -7,7 +7,7 @@
 $fn=32;
 e=0.01;
 
-front_hole_r = 6;   // TODO: if we use that with thinner bands: needs adjust
+front_hole_r = 5.5;   // TODO: if we use that with thinner bands: needs adjust
 
 // mm to move the pin up
 vertical_pin_shift=7;  // mm
@@ -32,7 +32,7 @@ module maker_nexus_baseline_headband(version_text, height_scale=1.0) {
 
 module hole_punch(angle=0, r=front_hole_r, dist=70) {
   rotate([0, 0, angle]) translate([0, dist, 0])
-    rotate([-90, 0, 0]) rotate([0, 0, 30]) cylinder(r=r, h=20, $fn=6);
+    rotate([-90, 0, 0]) cylinder(r=r, h=20, $fn=6);
 }
 
 // A headband that is lighter due to cutout-holes
@@ -50,7 +50,7 @@ module light_headband(version_text="", h_scale=1,
 
       if (do_back_punches) {
         translate([0, -40, 0]) for (i = [-7:1:+7]) {
-          hole_punch(i * 10, r=front_hole_r-1, dist=68);
+          hole_punch(i * 10, r=front_hole_r-0.5, dist=68);
         }
       }
     }
