@@ -11,7 +11,7 @@ slow part of manufacturing.
 Please check out the [project page] if you are in the San Francisco
 Bay Area and want to help.
 
-We are using the [Prusa-rc2] design, but needed some modifications requested
+We are using the [Prusa-rc3] design, but needed some modifications requested
 by the local healthcare community.
 
 ### Design goals
@@ -91,7 +91,7 @@ This is based on the Prusa design
 https://www.prusaprinters.org/prints/25857-prusa-protective-face-shield-rc2
 
 [MakerNexus]: https://www.makernexus.com/
-[prusa-rc2]: https://www.prusaprinters.org/prints/25857-prusa-protective-face-shield-rc2
+[prusa-rc3]: https://www.prusaprinters.org/prints/25857-prusa-protective-face-shield-rc3
 [CC-BY-NC]: https://creativecommons.org/licenses/by-nc/4.0/
 [project page]: http://makernexuswiki.com/index.php?title=3D_printed_face_shields
 [prusa-slicer]: https://www.prusa3d.com/prusaslicer/
