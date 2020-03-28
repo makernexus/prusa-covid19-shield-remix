@@ -46,7 +46,7 @@ now only print the normal shield** until further notice.
  * [normal_shield.3mf](./normal_shield.3mf) for direct use in prusa-slicer
    (or other slicers that understand 3mf files).
  * [normal_shield_with_support.stl](./normal_shield_with_support.stl) and
-   [normal_no_with_support.stl](./normal_shield_no_support.stl): normal
+   [normal_shield_no_support.stl](./normal_shield_no_support.stl): normal
    shield. The *support* version has already a support column inncluded
    for printing the pin. If you chose the *no support* version, you need
    to use your slicer to create support for these.
