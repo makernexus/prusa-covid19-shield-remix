@@ -43,7 +43,7 @@ module light_headband(version_text="", h_scale=1,
     maker_nexus_baseline_headband(version_text=version_text,
                                   height_scale=h_scale);
     if (do_front_punches) {
-      for (i = [-5:1:+5]) {
+      for (i = [-4:1:+4]) {
         // Punch holes exect in places of need of stabiliity.
         if (abs(i) != 2) hole_punch(i * angle_distance, r=front_hole_r, dist=70);
       }
@@ -149,4 +149,4 @@ module short_shield_with_support() {
   print_shield("s1", do_punches=false, pin_support=true, thin=true);
 }
 
-short_shield_with_support();
+normal_shield_with_support();
