@@ -15,9 +15,9 @@ all: $(ALL_OUTPUT)
 # .SECONDARY: $(ALL_OUTPUT:.stl=.scad)
 
 # Create an scad file on-the-fly that calls that particular function
-fab/%_support.scad : prusa-covid-shield-remix.scad
+fab/%.scad : prusa-covid-shield-remix.scad
 	mkdir -p fab
-	echo "use <../prusa-covid-shield-remix.scad>; $*_support();" > $@
+	echo "use <../prusa-covid-shield-remix.scad>; $*();" > $@
 
 %.stl: %.scad
 	openscad -o $@ -d $@.deps $<
