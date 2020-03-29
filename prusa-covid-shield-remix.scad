@@ -33,7 +33,7 @@ module maker_nexus_baseline_headband(version_text, height_scale=1.0) {
     scale([1, 1, height_scale]) baseline_headband();
 
     // Maker nexus version number.
-    translate([85.4, -38, 0.5]) {
+    translate([85.4, -37, 0.5]) {
       rotate([90, 0, -90]) linear_extrude(height=10) text("M", size=5, halign="center", font="style:Bold");
       translate([0, 0, -7]) rotate([90, 0, -90]) linear_extrude(height=10) text("N", size=6, halign="center", font="style:Bold");
     }
@@ -106,14 +106,15 @@ module support_column(angle=0, dist=0, wall_thick=0.75,
 
     // Some stability foot if we're first. Don't make it entirely solid, as
     // that seems to be too well connected to the build-bed.
+    foot_width=0.6;
     if (is_first) intersection() {
       translate([-15/2, -7.5, 0]) cube([15, 10, 1]);
       union() {
         difference() {
-          cylinder(r=r+1.5, h=0.3);
-          translate([0, 0, -e]) cylinder(r=r-1-wall_thick, h=0.3+2*e);
+          cylinder(r=r+foot_width, h=0.3);
+          translate([0, 0, -e]) cylinder(r=r-foot_width-wall_thick, h=0.3+2*e);
         }
-        translate([-(r+1), 1, 0]) cube([2*(r+1), 1.5, 0.3]);
+        translate([-(r+foot_width), 1, 0]) cube([2*(r+foot_width), 1.5, 0.3]);
       }
     }
   }
@@ -200,10 +201,10 @@ module print_stack(count=default_stack_height, is_thin=false) {
 //-- Some functions which we use to generate named STLs directly from these.
 
 module normal_shield_no_support() {
-  print_shield("⬡", do_punches=true, pin_support=false);
+  print_shield("N", do_punches=true, pin_support=false);
 }
 module normal_shield_with_support() {
-  print_shield("⬡", do_punches=true, pin_support=true);
+  print_shield("N", do_punches=true, pin_support=true);
 }
 module thin_shield_no_support() {
   print_shield("T", do_punches=false, pin_support=false, is_thin=true);
