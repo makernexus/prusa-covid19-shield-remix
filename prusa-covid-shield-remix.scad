@@ -16,16 +16,16 @@ front_hole_r = 5.5;   // TODO: if we use that with thinner bands: needs adjust
 // mm to move the pin up
 vertical_pin_shift=7;  // mm
 
-// supports
-support_width=0.5;  // Calipers say that 0.5mm is S3D's thickness
-perforation_fan_angle=4;  // was 8
-perforation_height=0.3*4; // 4 layers if printing at 0.30mm
-support_column_radius=3.5;
-
 // Experimental.
 default_stack_height = 3;
-stack_separation=perforation_height;
+stack_separation=0.3*4; // 4 layers if printing at 0.30mm;
 provide_stack_separation_support=true;  // very experimental.
+
+// supports
+support_width=0.75;  // Calipers say that 0.5mm is S3D's thickness.  Add 0.25 more for safety.
+perforation_fan_angle=4;  // was 8
+perforation_height=stack_separation;
+support_column_radius=4;
 
 function get_band_thick(is_thin) = is_thin ? 15 : 20;
 
