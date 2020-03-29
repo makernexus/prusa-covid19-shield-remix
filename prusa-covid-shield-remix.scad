@@ -22,6 +22,7 @@ default_stack_height = 3;
 stack_separation=0.3;
 provide_stack_separation_support=false;  // very experimental.
 
+// Size of the band depending on if we request it to be 'thin'
 function get_band_thick(is_thin) = is_thin ? 15 : 20;
 
 module baseline_headband() {
@@ -50,8 +51,9 @@ module hole_punch(angle=0, r=front_hole_r, dist=70) {
 }
 
 // A headband that is lighter due to cutout-holes
-module light_headband(version_text="", h_scale=1,
+module light_headband(version_text="", is_thin=false,
                       do_front_punches=true, do_back_punches=true) {
+  h_scale = get_band_thick(is_thin) / get_band_thick(false);
   angle_distance=11;  // degrees at which we punch our weight-reduce hole.
   difference() {
     maker_nexus_baseline_headband(version_text=version_text,
@@ -152,14 +154,14 @@ module print_shield(version_text, do_punches=true, pin_support=false,
   // Using the rotational cut-out means we capture the taper the band
   // has and replicate it fully at the bottom.
   intersection() {
-    rotate([0, 180, 0]) light_headband(h_scale=is_thin ? 0.75 : 1.0);
+    rotate([0, 180, 0]) light_headband(is_thin=is_thin);
     for (x = pin_angle_distances) roi_block(x[0], x[1]);
   }
 
   // Combine the above that with the shield, but leave out the pin area
   // we were 'operating' on: that is now filled with our construct above.
   difference() {
-    light_headband(version_text, h_scale=is_thin ? 0.75 : 1.0,
+    light_headband(version_text, is_thin=is_thin,
                    do_front_punches=do_punches, do_back_punches=do_punches);
     for (x = pin_angle_distances) roi_block(x[0], x[1], extra=-1);
   }
