@@ -40,7 +40,7 @@ only prints 15mm high (vs the normal 20mm) and does not have hexagons. It has
 *not* been tested yet if it is stable enough for holding the shield, so **for
 now only print the normal shield** until further notice.
 
- * [normal_shield_0.3mm_PETG_MK3S.gcode](./normal_shield_0.3mm_PETG_MK3S.gcode)
+ * [normal_shield_0.3mm_PETG_MK3S.gcode](./fab/normal_shield_0.3mm_PETG_MK3S.gcode)
    GCode files ready to go on Prusa MK3(s) with
    0.3mm layer, 100% infill, 240°C temp for PETG printing.
  * [normal_shield.3mf](./normal_shield.3mf) for direct use in prusa-slicer
