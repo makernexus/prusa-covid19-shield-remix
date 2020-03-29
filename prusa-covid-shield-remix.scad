@@ -7,6 +7,8 @@
 $fn=32;
 e=0.01;
 
+version_number=3;   // Running version number. Should align with v1.x release
+
 front_hole_r = 5.5;   // TODO: if we use that with thinner bands: needs adjust
 
 // mm to move the pin up
@@ -32,7 +34,9 @@ module maker_nexus_baseline_headband(version_text, height_scale=1.0) {
       rotate([90, 0, -90]) linear_extrude(height=10) text("M", size=5, halign="center", font="style:Bold");
       translate([0, 0, -7]) rotate([90, 0, -90]) linear_extrude(height=10) text("N", size=6, halign="center", font="style:Bold");
     }
-    translate([85.7, -60, -4]) rotate([90, 0, -90]) linear_extrude(height=10) text(version_text, size=8, halign="right", font="style:Bold");
+    translate([85.7, -60, -4]) rotate([90, 0, -90]) linear_extrude(height=10)
+      text(str(version_text, version_number),
+           size=8, halign="right", font="style:Bold");
   }
 }
 
@@ -164,7 +168,7 @@ module print_stack(count=default_stack_height, is_thin=false) {
     translate([0, 0, i*stack_distance]) {
       is_first = (i == 0);
       is_last = (i == (count - 1));
-      print_shield("☰3", do_punches=true, pin_support=true,
+      print_shield("☰", do_punches=true, pin_support=true,
                    is_first=is_first, is_last=is_last,
                    is_thin=is_thin, do_punches=!is_thin);
     }
@@ -173,16 +177,16 @@ module print_stack(count=default_stack_height, is_thin=false) {
 
 // Some functions which we use to generate named STLs directly from these.
 module normal_shield_no_support() {
-  print_shield("⬡3", do_punches=true, pin_support=false);
+  print_shield("⬡", do_punches=true, pin_support=false);
 }
 module normal_shield_with_support() {
-  print_shield("⬡3", do_punches=true, pin_support=true);
+  print_shield("⬡", do_punches=true, pin_support=true);
 }
 module thin_shield_no_support() {
-  print_shield("T3", do_punches=false, pin_support=false, is_thin=true);
+  print_shield("T", do_punches=false, pin_support=false, is_thin=true);
 }
 module thin_shield_with_support() {
-  print_shield("T3", do_punches=false, pin_support=true, is_thin=true);
+  print_shield("T", do_punches=false, pin_support=true, is_thin=true);
 }
 
 module normal_stack3_with_support() {
