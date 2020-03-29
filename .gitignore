@@ -1,2 +1,2 @@
-*.deps
-fab/
+fab/*.deps
+fab/*.scad
