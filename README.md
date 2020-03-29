@@ -35,8 +35,8 @@ Simply get the [latest release](https://github.com/hzeller/prusa-covid19-shield-
 
 #### Release content
 
-We distinguish between 'normal shield' and 'short shield': the shorter one
-only prints 15mm high (vs the normal 20mm) and does not have hexagons. It has
+We distinguish between 'normal shield' and 'thin shield': the thinner one
+only prints 15mm high (vs the normal 20mm) and does not have holes. It has
 *not* been tested yet if it is stable enough for holding the shield, so **for
 now only print the normal shield** until further notice.
 
@@ -47,7 +47,7 @@ now only print the normal shield** until further notice.
    (or other slicers that understand 3mf files).
  * [normal_shield_with_support.stl](./fab/normal_shield_with_support.stl) and
    [normal_shield_no_support.stl](./fab/normal_shield_no_support.stl): normal
-   shield. The *support* version has already a support column inncluded
+   shield. The *support* version has already a support column included
    for printing the pin. If you chose the *no support* version, you need
    to use your slicer to create support for these.
 
