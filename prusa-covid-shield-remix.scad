@@ -184,26 +184,11 @@ module print_shield(version_text, do_punches=true, pin_support=false,
 module perforation_fan(wide=support_width, high=perforation_height) {
   for (a = [-40:perforation_fan_angle:180+40]) rotate([0, 0, a]) cube([120, wide, high]);
 }
-
-module perforation_grid(wide=support_width, high=perforation_height) {
-    space = 2.5;
-    size = 200;
-    for (i = [-size/2:space:size/2]) {
-			translate([-size/2, i, 0]) {
-				cube([size, wide, high]);  
-            };
-            translate([i, -size/2, 0]) {
-				cube([wide, size, high]);
-            };
-	}
-}
-  
 module perforation() {
   h=perforation_height;
   color("yellow") render() translate([0, 0, h]) intersection() {
     baseline_headband();
     translate([0, 0, 10-h]) perforation_fan(high=h);
-    //translate([0, 0, 10-h]) perforation_grid(high=h);
   }
 }
 
