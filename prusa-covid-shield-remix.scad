@@ -19,10 +19,12 @@ support_wall=0.5; // Use 0.5 if slicer can detect thin walls.
 // mm to move the pin up
 vertical_pin_shift=7;  // mm
 
+print_layer_height=0.3;   // Layer thickness we're printing
+
 // Experimental stacking.
 default_stack_height = 3;
-stack_separation=0.3*4;   // 4 layers if printing at 0.30mm;
-provide_stack_separation_support=true;  // very experimental.
+stack_separation=4 * print_layer_height;  // 4 layers if printing at 0.30mm;
+provide_stack_separation_support=true;    // very experimental.
 
 // Support between stack layers
 stack_support_width=support_wall;
@@ -90,7 +92,7 @@ module support_column(angle=0, dist=0, wall_thick=support_wall,
   band_thick = get_band_thick(is_thin);
   relative_below = (get_band_thick(false) - band_thick) / 2;
   level_thick=0.6;
-  support_platform=vertical_pin_shift-0.3 - relative_below;
+  support_platform=vertical_pin_shift - print_layer_height - relative_below;
   h=is_last ? support_platform : band_thick + stack_separation;
 
   color("yellow") rotate([0, 0, angle]) translate([0, dist, -band_thick/2])
