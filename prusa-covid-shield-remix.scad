@@ -12,25 +12,26 @@ e=0.01;
 version_number="3'";
 
 front_hole_r = 5.5;   // TODO: if we use that with thinner bands: needs adjust
-support_column_food_thickness=1.2;  // support-column: this much extra wide foot
+
+support_column_foot_thickness=1.2;  // support-column: this much extra wide foot
+support_wall=0.5; // Use 0.5 if slicer can detect thin walls.
 
 // mm to move the pin up
 vertical_pin_shift=7;  // mm
 
-// Experimental.
+// Experimental stacking.
 default_stack_height = 3;
-stack_separation=0.3*4; // 4 layers if printing at 0.30mm;
+stack_separation=0.3*4;   // 4 layers if printing at 0.30mm;
 provide_stack_separation_support=true;  // very experimental.
 
-// supports
-support_width=0.75;  // Calipers say that 0.5mm is S3D's thickness.  Add 0.25 more for safety.
-perforation_fan_angle=4;  // was 8
+// Support between stack layers
+stack_support_width=support_wall;
+perforation_fan_angle=4;
 perforation_height=stack_separation;
-support_column_radius=4;
+support_column_radius=4.5;
 
 // Size of the band depending on if we request it to be 'thin'
 function get_band_thick(is_thin) = is_thin ? 15 : 20;
-
 
 module baseline_headband() {
   // The distribted STL file is pretty shifted...
@@ -81,7 +82,7 @@ module light_headband(version_text="", is_thin=false,
 }
 
 // Support for the pins.
-module support_column(angle=0, dist=0, wall_thick=support_width,
+module support_column(angle=0, dist=0, wall_thick=support_wall,
                       is_first=true, is_last=true, is_thin=false) {
   r=support_column_radius;
   // distances were originally calibrated for r=5mm
@@ -118,7 +119,7 @@ module support_column(angle=0, dist=0, wall_thick=support_width,
 
     // Some stability foot if we're first. Don't make it entirely solid, as
     // that seems to be too well connected to the build-bed.
-    foot_width=support_column_food_thickness/2;
+    foot_width=support_column_foot_thickness/2;
     if (is_first) intersection() {
       translate([-15/2, -7.5, 0]) cube([15, 10, 1]);
       union() {
@@ -184,7 +185,7 @@ module print_shield(version_text, do_punches=true, pin_support=false,
   }
 }
 
-module perforation_fan(wide=support_width, high=perforation_height) {
+module perforation_fan(wide=stack_support_width, high=perforation_height) {
   for (a = [-40:perforation_fan_angle:180+40]) rotate([0, 0, a]) cube([120, wide, high]);
 }
 module perforation() {
@@ -233,4 +234,4 @@ module thin_stack3_with_support() {
 }
 
 normal_shield_with_support();
-//print_stack(3, is_thin=false);
+//print_stack(3, is_thin=true);
