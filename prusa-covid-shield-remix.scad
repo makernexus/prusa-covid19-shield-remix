@@ -190,10 +190,10 @@ module perforation_fan(wide=stack_support_width, high=perforation_height) {
 }
 module perforation(is_thin=false) {
   h=perforation_height;
-  offset = get_band_thick(is_thin) / 2;
-  color("yellow") render() translate([0, 0, h]) intersection() {
+  place_on_top = get_band_thick(is_thin) / 2;
+  color("yellow") render() translate([0, 0, h-10+place_on_top]) intersection() {
     baseline_headband();
-    translate([0, 0, offset-h]) perforation_fan(high=h);
+    translate([0, 0, 10-h]) perforation_fan(high=h);
   }
 }
 
