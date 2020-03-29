@@ -178,17 +178,17 @@ module normal_shield_no_support() {
 module normal_shield_with_support() {
   print_shield("⬡3", do_punches=true, pin_support=true);
 }
-module short_shield_no_support() {
-  print_shield("s3", do_punches=false, pin_support=false, is_thin=true);
+module thin_shield_no_support() {
+  print_shield("T3", do_punches=false, pin_support=false, is_thin=true);
 }
-module short_shield_with_support() {
-  print_shield("s3", do_punches=false, pin_support=true, is_thin=true);
+module thin_shield_with_support() {
+  print_shield("T3", do_punches=false, pin_support=true, is_thin=true);
 }
 
 module normal_stack3_with_support() {
   print_stack(3, is_thin=false);
 }
-module short_stack3_with_support() {
+module thin_stack3_with_support() {
   print_stack(3, is_thin=true);
 }
 
