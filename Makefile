@@ -1,6 +1,7 @@
-ALL_OUTPUT=$(addprefix fab/, normal_shield_no_support.stl normal_shield_with_support.stl \
-           thin_shield_no_support.stl thin_shield_with_support.stl \
-           normal_stack3_with_support.stl thin_stack3_with_support.stl)
+ALL_OUTPUT=$(addprefix fab/, \
+             normal_shield_no_support.stl normal_shield_with_support.stl \
+             thin_shield_no_support.stl thin_shield_with_support.stl \
+             normal_stack3_with_support.stl thin_stack3_with_support.stl)
 
 all: $(ALL_OUTPUT)
 
@@ -16,12 +17,12 @@ fab/%_support.scad : prusa-covid-shield-remix.scad
 	openscad -o $@ -d $@.deps $<
 
 # List all the available targets so that they are tab-completable.
-normal_shield_no_support.stl:
-normal_shield_with_support.stl:
-thin_shield_no_support.stl:
-thin_shield_with_support.stl:
-normal_stack3_with_support.stl:
-thin_stack3_with_support.stl:
+fab/normal_shield_no_support.stl:
+fab/normal_shield_with_support.stl:
+fab/thin_shield_no_support.stl:
+fab/thin_shield_with_support.stl:
+fab/normal_stack3_with_support.stl:
+fab/thin_stack3_with_support.stl:
 
 clean:
 	rm -f $(ALL_OUTPUT) $(ALL_OUTPUT:=.deps)
