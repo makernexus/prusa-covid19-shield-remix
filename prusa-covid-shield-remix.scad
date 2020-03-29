@@ -226,6 +226,5 @@ module thin_stack3_with_support() {
   print_stack(3, is_thin=true);
 }
 
-//normal_shield_with_support();
-//print_stack(2);
-print_stack(3, is_thin=false);
+normal_shield_with_support();
+//print_stack(3, is_thin=false);
