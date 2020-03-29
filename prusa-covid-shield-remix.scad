@@ -101,10 +101,17 @@ module support_column(angle=0, dist=0, wall_thick=0.75,
     }
 
 
-    // Some stability foot if we're first.
+    // Some stability foot if we're first. Don't make it entirely solid, as
+    // that seems to be too well connected to the build-bed.
     if (is_first) intersection() {
       translate([-15/2, -7.5, 0]) cube([15, 10, 1]);
-      cylinder(r=7, h=0.3);
+      union() {
+        difference() {
+          cylinder(r=r+1.5, h=0.3);
+          translate([0, 0, -e]) cylinder(r=r-1-wall_thick, h=0.3+2*e);
+        }
+        translate([-(r+1), 1, 0]) cube([2*(r+1), 1.5, 0.3]);
+      }
     }
   }
 }
