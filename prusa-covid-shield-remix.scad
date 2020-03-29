@@ -188,11 +188,12 @@ module print_shield(version_text, do_punches=true, pin_support=false,
 module perforation_fan(wide=stack_support_width, high=perforation_height) {
   for (a = [-40:perforation_fan_angle:180+40]) rotate([0, 0, a]) cube([120, wide, high]);
 }
-module perforation() {
+module perforation(is_thin=false) {
   h=perforation_height;
+  offset = get_band_thick(is_thin) / 2;
   color("yellow") render() translate([0, 0, h]) intersection() {
     baseline_headband();
-    translate([0, 0, 10-h]) perforation_fan(high=h);
+    translate([0, 0, offset-h]) perforation_fan(high=h);
   }
 }
 
@@ -206,7 +207,7 @@ module print_stack(count=default_stack_height, is_thin=false) {
       print_shield("☰", pin_support=true,
                    is_first=is_first, is_last=is_last,
                    is_thin=is_thin, do_punches=!is_thin);
-      if (provide_stack_separation_support && !is_last) perforation();
+      if (provide_stack_separation_support && !is_last) perforation(is_thin);
     }
   }
 }
