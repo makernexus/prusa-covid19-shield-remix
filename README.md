@@ -51,6 +51,11 @@ now only print the normal shield** until further notice.
    for printing the pin. If you chose the *no support* version, you need
    to use your slicer to create support for these.
 
+If you have checked out code from github, you might need to first `make` it
+and reload the STLs in the 3mf. The STLs and 3mf are usually only updated in
+git for a new release (click on the stl in the list on the right in prusa slicer
+and say 'reload from disk').
+
 ### Code
 
 A simple OpenSCAD file that take the original STL and does the necessary
