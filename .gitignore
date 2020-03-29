@@ -1,2 +1,3 @@
 fab/*.deps
 fab/*.scad
+fab/thin_*

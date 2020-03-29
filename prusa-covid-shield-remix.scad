@@ -19,11 +19,18 @@ vertical_pin_shift=7;  // mm
 
 // Experimental.
 default_stack_height = 3;
-stack_separation=0.3;
-provide_stack_separation_support=false;  // very experimental.
+stack_separation=0.3*4; // 4 layers if printing at 0.30mm;
+provide_stack_separation_support=true;  // very experimental.
+
+// supports
+support_width=0.75;  // Calipers say that 0.5mm is S3D's thickness.  Add 0.25 more for safety.
+perforation_fan_angle=4;  // was 8
+perforation_height=stack_separation;
+support_column_radius=4;
 
 // Size of the band depending on if we request it to be 'thin'
 function get_band_thick(is_thin) = is_thin ? 15 : 20;
+
 
 module baseline_headband() {
   // The distribted STL file is pretty shifted...
@@ -74,9 +81,11 @@ module light_headband(version_text="", is_thin=false,
 }
 
 // Support for the pins.
-module support_column(angle=0, dist=0, wall_thick=0.75,
+module support_column(angle=0, dist=0, wall_thick=support_width,
                       is_first=true, is_last=true, is_thin=false) {
-  r=5;
+  r=support_column_radius;
+  // distances were originally calibrated for r=5mm
+  dist=dist-(5-support_column_radius);
   band_thick = get_band_thick(is_thin);
   level_thick=0.6;
   support_platform=vertical_pin_shift-0.3 - (is_thin ? 2.5 : 0);
@@ -98,7 +107,7 @@ module support_column(angle=0, dist=0, wall_thick=0.75,
           }
         }
 
-        // The 'shelve' part.
+        // The 'shelf' part.
         translate([0, -0.5, support_platform-level_thick]) {
           translate([-r, 0, 0]) cube([2*r, 3, level_thick]);
           cylinder(r=r-wall_thick, h=level_thick);
@@ -175,11 +184,11 @@ module print_shield(version_text, do_punches=true, pin_support=false,
   }
 }
 
-module perforation_fan(wide=0.75, high=stack_separation) {
-  for (a = [-40:8:180+40]) rotate([0, 0, a]) cube([120, wide, high]);
+module perforation_fan(wide=support_width, high=perforation_height) {
+  for (a = [-40:perforation_fan_angle:180+40]) rotate([0, 0, a]) cube([120, wide, high]);
 }
 module perforation() {
-  h=stack_separation;
+  h=perforation_height;
   color("yellow") render() translate([0, 0, h]) intersection() {
     baseline_headband();
     translate([0, 0, 10-h]) perforation_fan(high=h);
@@ -193,7 +202,7 @@ module print_stack(count=default_stack_height, is_thin=false) {
     translate([0, 0, i*stack_distance]) {
       is_first = (i == 0);
       is_last = (i == (count - 1));
-      print_shield("☰", do_punches=true, pin_support=true,
+      print_shield("☰", pin_support=true,
                    is_first=is_first, is_last=is_last,
                    is_thin=is_thin, do_punches=!is_thin);
       if (provide_stack_separation_support && !is_last) perforation();
@@ -224,4 +233,4 @@ module thin_stack3_with_support() {
 }
 
 normal_shield_with_support();
-//print_stack(2);
+//print_stack(3, is_thin=false);
