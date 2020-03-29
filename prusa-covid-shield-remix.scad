@@ -12,6 +12,7 @@ e=0.01;
 version_number="3'";
 
 front_hole_r = 5.5;   // TODO: if we use that with thinner bands: needs adjust
+support_column_food_thickness=1.2;  // support-column: this much extra wide foot
 
 // mm to move the pin up
 vertical_pin_shift=7;  // mm
@@ -106,7 +107,7 @@ module support_column(angle=0, dist=0, wall_thick=0.75,
 
     // Some stability foot if we're first. Don't make it entirely solid, as
     // that seems to be too well connected to the build-bed.
-    foot_width=0.6;
+    foot_width=support_column_food_thickness/2;
     if (is_first) intersection() {
       translate([-15/2, -7.5, 0]) cube([15, 10, 1]);
       union() {
