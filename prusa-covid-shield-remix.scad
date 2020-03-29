@@ -17,6 +17,7 @@ vertical_pin_shift=7;  // mm
 // Experimental.
 default_stack_height = 3;
 stack_separation=0.3;
+provide_stack_separation_support=false;  // very experimental.
 
 function get_band_thick(is_thin) = is_thin ? 15 : 20;
 
@@ -168,6 +169,17 @@ module print_shield(version_text, do_punches=true, pin_support=false,
   }
 }
 
+module perforation_fan(wide=0.75, high=stack_separation) {
+  for (a = [-40:8:180+40]) rotate([0, 0, a]) cube([120, wide, high]);
+}
+module perforation() {
+  h=stack_separation;
+  color("yellow") render() translate([0, 0, h]) intersection() {
+    baseline_headband();
+    translate([0, 0, 10-h]) perforation_fan(high=h);
+  }
+}
+
 // Print a stack of face-shields.
 module print_stack(count=default_stack_height, is_thin=false) {
   stack_distance = get_band_thick(is_thin) + stack_separation;
@@ -178,11 +190,13 @@ module print_stack(count=default_stack_height, is_thin=false) {
       print_shield("☰", do_punches=true, pin_support=true,
                    is_first=is_first, is_last=is_last,
                    is_thin=is_thin, do_punches=!is_thin);
+      if (provide_stack_separation_support && !is_last) perforation();
     }
   }
 }
 
-// Some functions which we use to generate named STLs directly from these.
+//-- Some functions which we use to generate named STLs directly from these.
+
 module normal_shield_no_support() {
   print_shield("⬡", do_punches=true, pin_support=false);
 }
@@ -204,3 +218,4 @@ module thin_stack3_with_support() {
 }
 
 normal_shield_with_support();
+//print_stack(2);
