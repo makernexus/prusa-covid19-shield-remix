@@ -7,7 +7,9 @@
 $fn=32;
 e=0.01;
 
-version_number=3;   // Running version number. Should align with v1.x release
+// Running version number. Should align with v1.x release.
+// Intermediate git release WIP add a '
+version_number="3'";
 
 front_hole_r = 5.5;   // TODO: if we use that with thinner bands: needs adjust
 
