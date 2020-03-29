@@ -199,7 +199,7 @@ module print_stack(count=default_stack_height, is_thin=false) {
     translate([0, 0, i*stack_distance]) {
       is_first = (i == 0);
       is_last = (i == (count - 1));
-      print_shield("☰", do_punches=true, pin_support=true,
+      print_shield("☰", pin_support=true,
                    is_first=is_first, is_last=is_last,
                    is_thin=is_thin, do_punches=!is_thin);
       if (provide_stack_separation_support && !is_last) perforation();
