@@ -40,13 +40,13 @@ only prints 15mm high (vs the normal 20mm) and does not have holes. It has
 *not* been tested yet if it is stable enough for holding the shield, so **for
 now only print the normal shield** until further notice.
 
- * [normal_shield_0.3mm_PETG_MK3S.gcode](./fab/normal_shield_0.3mm_PETG_MK3S.gcode)
+ * [normal_shield_0.3mm_PETG_MK3S.gcode](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.3/normal_shield_0.3mm_PETG_MK3S.gcode)
    GCode files ready to go on Prusa MK3(s) with
    0.3mm layer, 100% infill, 240°C temp for PETG printing.
- * [normal_shield.3mf](./normal_shield.3mf) for direct use in prusa-slicer
+ * [normal_shield.3mf](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.3/normal_shield.3mf) for direct use in prusa-slicer
    (or other slicers that understand 3mf files).
- * [normal_shield_with_support.stl](./fab/normal_shield_with_support.stl) and
-   [normal_shield_no_support.stl](./fab/normal_shield_no_support.stl): normal
+ * [normal_shield_with_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.3/normal_shield_with_support.stl) and
+   [normal_shield_no_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.3/normal_shield_no_support.stl): normal
    shield. The *support* version has already a support column included
    for printing the pin. If you chose the *no support* version, you need
    to use your slicer to create support for these.
