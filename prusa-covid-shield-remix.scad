@@ -88,8 +88,9 @@ module support_column(angle=0, dist=0, wall_thick=support_wall,
   // distances were originally calibrated for r=5mm
   dist=dist-(5-support_column_radius);
   band_thick = get_band_thick(is_thin);
+  relative_below = (get_band_thick(false) - band_thick) / 2;
   level_thick=0.6;
-  support_platform=vertical_pin_shift-0.3 - (is_thin ? 2.5 : 0);
+  support_platform=vertical_pin_shift-0.3 - relative_below;
   h=is_last ? support_platform : band_thick + stack_separation;
 
   color("yellow") rotate([0, 0, angle]) translate([0, dist, -band_thick/2])
@@ -152,7 +153,9 @@ module roi_block(angle, dist, extra=0) {
 
 module print_shield(version_text, do_punches=true, pin_support=false,
                     is_thin=false, is_first=true, is_last=true) {
-  // Cut out the area with the pins and move them up.
+  // Cut out the area with the pins and move them up so that they are
+  // centered around the zero plane. We take them from the baseline headband
+  // not from the 'squished' one for the scaled version.
   translate([0, 0, vertical_pin_shift]) intersection() {
     baseline_headband();  // Baseline has the right sized pins.
     for (x = pin_angle_distances) roi_block(x[0], x[1]);
