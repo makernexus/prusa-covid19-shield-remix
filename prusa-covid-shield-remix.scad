@@ -12,6 +12,12 @@ front_hole_r = 5.5;   // TODO: if we use that with thinner bands: needs adjust
 // mm to move the pin up
 vertical_pin_shift=7;  // mm
 
+// Experimental.
+default_stack_height = 3;
+stack_separation=0.3;
+
+function get_band_thick(is_thin) = is_thin ? 15 : 20;
+
 module baseline_headband() {
   // The distribted STL file is pretty shifted...
   translate([7.8, 9, 2.5]) import("baseline/covid19_headband_rc3.stl", convexity=10);
@@ -58,29 +64,41 @@ module light_headband(version_text="", h_scale=1,
 }
 
 // Support for the pins.
-module support_column(angle=0, dist=0, last=true, wall_thick=0.75,
-                      is_thin=false) {
+module support_column(angle=0, dist=0, wall_thick=0.75,
+                      is_first=true, is_last=true, is_thin=false) {
   r=5;
-  band_thick = is_thin ? 15 : 20;
+  band_thick = get_band_thick(is_thin);
   level_thick=0.6;
   support_platform=vertical_pin_shift-0.3 - (is_thin ? 2.5 : 0);
-  h=last ? support_platform : stack_distance;
+  h=is_last ? support_platform : band_thick + stack_separation;
+
   color("yellow") rotate([0, 0, angle]) translate([0, dist, -band_thick/2])
     rotate([0, 0, 180]) {
-    difference() {
+    intersection() {
+      translate([-r, -r-2.5, 0]) cube([2*r, 2*r, h]);
       union() {
-        cylinder(r=r, h=h);
-        translate([-r, 0, 0]) cube([2*r, 0.5*r, h]);
-      }
-      translate([0, 0, -e]) union() {
-        translate([0, 0, -level_thick]) cylinder(r=r-wall_thick, h=h+2*e);
-        translate([-(r-wall_thick), 0, 0]) cube([2*(r-wall_thick), r, h+2*e]);
+        difference() {
+          union() {
+            cylinder(r=r, h=h);  // Column
+            translate([-r, 0, 0]) cube([2*r, 0.5*r, h]); // .. flattened
+          }
+          translate([0, 0, -e]) union() {  // Remove inside
+            translate([0, 0, 0]) cylinder(r=r-wall_thick, h=h+2*e);
+            translate([-(r-wall_thick), 0, 0]) cube([2*(r-wall_thick), r, h+2*e]);
+          }
+        }
+
+        // The 'shelve' part.
+        translate([0, -0.5, support_platform-level_thick]) {
+          translate([-r, 0, 0]) cube([2*r, 3, level_thick]);
+          cylinder(r=r-wall_thick, h=level_thick);
+        }
       }
     }
-    // Top part.
-    translate([-r, -0.5, support_platform-level_thick]) cube([2*r, 3, level_thick]);
-    // Some stability foot.
-    intersection() {
+
+
+    // Some stability foot if we're first.
+    if (is_first) intersection() {
       translate([-15/2, -7.5, 0]) cube([15, 10, 1]);
       cylinder(r=7, h=0.3);
     }
@@ -105,7 +123,7 @@ module roi_block(angle, dist, extra=0) {
 }
 
 module print_shield(version_text, do_punches=true, pin_support=false,
-                    thin=false) {
+                    is_thin=false, is_first=true, is_last=true) {
   // Cut out the area with the pins and move them up.
   translate([0, 0, vertical_pin_shift]) intersection() {
     baseline_headband();  // Baseline has the right sized pins.
@@ -118,31 +136,42 @@ module print_shield(version_text, do_punches=true, pin_support=false,
   // Using the rotational cut-out means we capture the taper the band
   // has and replicate it fully at the bottom.
   intersection() {
-    rotate([0, 180, 0]) light_headband(h_scale=thin ? 0.75 : 1.0);
+    rotate([0, 180, 0]) light_headband(h_scale=is_thin ? 0.75 : 1.0);
     for (x = pin_angle_distances) roi_block(x[0], x[1]);
   }
 
   // Combine the above that with the shield, but leave out the pin area
   // we were 'operating' on: that is now filled with our construct above.
   difference() {
-    light_headband(version_text, h_scale=thin ? 0.75 : 1.0,
+    light_headband(version_text, h_scale=is_thin ? 0.75 : 1.0,
                    do_front_punches=do_punches, do_back_punches=do_punches);
     for (x = pin_angle_distances) roi_block(x[0], x[1], extra=-1);
   }
 
   // Add support for the pins.
   if (pin_support) {
-    for (x = pin_angle_distances) support_column(x[0], x[1]+3, is_thin=thin);
+    for (x = pin_angle_distances) support_column(x[0], x[1]+3,
+                                                 is_thin=is_thin,
+                                                 is_last=is_last,
+                                                 is_first=is_first);
   }
 }
 
-// Places where we need support are the places where our region-of-interest
-// blocks are. We use the STL generated from these to tell Prusa-Slicer where
-// we want the support.
-module support_modifier() {
-  for (x = pin_angle_distances) roi_block(x[0], x[1]);
+// Print a stack of face-shields.
+module print_stack(count=default_stack_height, is_thin=false) {
+  stack_distance = get_band_thick(is_thin) + stack_separation;
+  for (i = [0:1:count-e]) {
+    translate([0, 0, i*stack_distance]) {
+      is_first = (i == 0);
+      is_last = (i == (count - 1));
+      print_shield("☰3", do_punches=true, pin_support=true,
+                   is_first=is_first, is_last=is_last,
+                   is_thin=is_thin, do_punches=!is_thin);
+    }
+  }
 }
 
+// Some functions which we use to generate named STLs directly from these.
 module normal_shield_no_support() {
   print_shield("⬡3", do_punches=true, pin_support=false);
 }
@@ -150,10 +179,17 @@ module normal_shield_with_support() {
   print_shield("⬡3", do_punches=true, pin_support=true);
 }
 module short_shield_no_support() {
-  print_shield("s3", do_punches=false, pin_support=false, thin=true);
+  print_shield("s3", do_punches=false, pin_support=false, is_thin=true);
 }
 module short_shield_with_support() {
-  print_shield("s3", do_punches=false, pin_support=true, thin=true);
+  print_shield("s3", do_punches=false, pin_support=true, is_thin=true);
+}
+
+module normal_stack3_with_support() {
+  print_stack(3, is_thin=false);
+}
+module short_stack3_with_support() {
+  print_stack(3, is_thin=true);
 }
 
 normal_shield_with_support();

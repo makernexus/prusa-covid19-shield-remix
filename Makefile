@@ -1,5 +1,6 @@
 ALL_OUTPUT=normal_shield_no_support.stl normal_shield_with_support.stl \
-           short_shield_no_support.stl short_shield_with_support.stl
+           short_shield_no_support.stl short_shield_with_support.stl \
+           normal_stack3_with_support.stl short_stack3_with_support.stl
 
 all: $(ALL_OUTPUT)
 
