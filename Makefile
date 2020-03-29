@@ -12,8 +12,13 @@ all: $(ALL_OUTPUT)
 %.stl: %.scad
 	openscad -o $@ -d $@.deps $<
 
-foo:
-	echo
+# List all the available targets so that they are tab-completable.
+normal_shield_no_support.stl:
+normal_shield_with_support.stl:
+thin_shield_no_support.stl:
+thin_shield_with_support.stl:
+normal_stack3_with_support.stl:
+thin_stack3_with_support.stl:
 
 clean:
 	rm -f $(ALL_OUTPUT) $(ALL_OUTPUT:=.deps)
