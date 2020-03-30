@@ -42,11 +42,11 @@ module maker_nexus_baseline_headband(version_text, is_thin=false) {
   difference() {
     translate([0, 20, offset]) import(file, convexity=10);
     // Maker nexus version number.
-    translate([85.4, -37, 0.5]) {
+    translate([85.4, -27, 0.5]) {
       rotate([90, 0, -90]) linear_extrude(height=10) text("M", size=5, halign="center", font="style:Bold");
       translate([0, 0, -7]) rotate([90, 0, -90]) linear_extrude(height=10) text("N", size=6, halign="center", font="style:Bold");
     }
-    translate([85.7, -60, -4]) rotate([90, 0, -90]) linear_extrude(height=10)
+    translate([85.7, -48, -4]) rotate([90, 0, -90]) linear_extrude(height=10)
       text(str(version_text, version_number),
            size=8, halign="right", font="style:Bold");
   }
