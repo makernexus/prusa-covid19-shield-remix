@@ -8,6 +8,11 @@ ALL_OUTPUT=$(addprefix fab/, \
 release: fab/normal_shield_with_support.stl fab/thin_shield_with_support.stl
 	ln -sf $^ .
 
+# Same for stacks: prepare the STLs and link to local directory where 3mf
+# is. That way, we can do a simple 'reload from disk'
+stacks: fab/thin-stack3.stl fab/thin-stack4.stl fab/thin-stack5.stl
+	ln -sf $^ .
+
 # Building all the possible STLs.
 all: $(ALL_OUTPUT)
 
@@ -19,7 +24,18 @@ fab/%.scad : prusa-covid-shield-remix.scad
 	mkdir -p fab
 	echo "use <../prusa-covid-shield-remix.scad>; $*();" > $@
 
-%.stl: %.scad
+# Configure
+# There certainly is a better Makefile way to describe this 3, 4, 5 pattern...
+fab/thin-stack3.stl: fab/thin_stack_with_support.scad
+	openscad -o $@ -Ddefault_stack_height=3 -Dprint_layer_height=0.25 -Dsupport_wall=1.1 -d $@.deps $<
+
+fab/thin-stack4.stl: fab/thin_stack_with_support.scad
+	openscad -o $@ -Ddefault_stack_height=4 -Dprint_layer_height=0.25 -Dsupport_wall=1.1 -d $@.deps $<
+
+fab/thin-stack5.stl: fab/thin_stack_with_support.scad
+	openscad -o $@ -Ddefault_stack_height=5 -Dprint_layer_height=0.25 -Dsupport_wall=1.1 -d $@.deps $<
+
+%_support.stl: %_support.scad
 	openscad -o $@ -d $@.deps $<
 
 # Unfortunately, we have to use the UI curently. For some reason the
@@ -32,8 +48,9 @@ fab/normal_shield_no_support.stl:
 fab/normal_shield_with_support.stl:
 fab/thin_shield_no_support.stl:
 fab/thin_shield_with_support.stl:
-fab/normal_stack3_with_support.stl:
-fab/thin_stack3_with_support.stl:
+fab/thin-stack3.stl:
+fab/thin-stack4.stl:
+fab/thin-stack5.stl:
 
 clean:
 	rm -f $(ALL_OUTPUT) $(ALL_OUTPUT:=.deps) *.stl

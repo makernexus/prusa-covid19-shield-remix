@@ -236,11 +236,11 @@ module thin_shield_with_support() {
   print_shield("T", do_punches=false, pin_support=true, is_thin=true);
 }
 
-module normal_stack3_with_support() {
-  print_stack(3, is_thin=false);
+module normal_stack_with_support() {
+  print_stack(default_stack_height, is_thin=false);
 }
-module thin_stack3_with_support() {
-  print_stack(5, is_thin=true);
+module thin_stack_with_support() {
+  print_stack(default_stack_height, is_thin=true);
 }
 
 // Local testing call. Can be left in, it will be ignored in the Makefile.
