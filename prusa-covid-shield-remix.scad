@@ -206,11 +206,12 @@ module perforation(is_thin=false) {
 // Print a stack of face-shields.
 module print_stack(count=default_stack_height, is_thin=false) {
   stack_distance = get_band_thick(is_thin) + stack_separation;
+  base_version = str("s", is_thin ? "t" : "");
   for (i = [0:1:count-e]) {
     translate([0, 0, i*stack_distance]) {
       is_first = (i == 0);
       is_last = (i == (count - 1));
-      print_shield("☰", pin_support=true,
+      print_shield(base_version, pin_support=true,
                    is_first=is_first, is_last=is_last,
                    is_thin=is_thin, do_punches=!is_thin);
       if (provide_stack_separation_support && !is_last) perforation(is_thin);
@@ -218,8 +219,10 @@ module print_stack(count=default_stack_height, is_thin=false) {
   }
 }
 
-//-- Some functions which we use to generate named STLs directly from these.
 
+/* Some functions which we use to generate named
+ * STLs directly in the Makefile
+ */
 module normal_shield_no_support() {
   print_shield("N", do_punches=false, pin_support=false);
 }
@@ -240,5 +243,6 @@ module thin_stack3_with_support() {
   print_stack(5, is_thin=true);
 }
 
+// Local testing call. Can be left in, it will be ignored in the Makefile.
 normal_shield_with_support();
 //print_stack(3, is_thin=true);
