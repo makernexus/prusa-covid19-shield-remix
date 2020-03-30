@@ -23,8 +23,9 @@ print_layer_height=0.3;   // Layer thickness we're printing
 
 // Experimental stacking.
 default_stack_height = 3;
-stack_separation=4 * print_layer_height;  // 4 layers if printing at 0.30mm;
 provide_stack_separation_support=true;    // very experimental.
+stack_separation=provide_stack_separation_support ? 4 : 1
+  * print_layer_height;  // 4 layers if printing at 0.30mm;
 
 // Support between stack layers
 stack_support_width=support_wall;
