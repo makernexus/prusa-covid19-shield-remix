@@ -52,13 +52,13 @@ Recommended
 
  * [normal_shield.3mf](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/normal_shield.3mf) and [thin_shield.3mf](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/thin_shield.3mf) for direct use in prusa-slicer
    (or other slicers that understand 3mf files).
- * [normal_shield_with_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/normal_shield_with_support.stl) and
-   [normal_shield_no_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/normal_shield_no_support.stl)
+ * [normal_shield_with_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/fab/normal_shield_with_support.stl) and
+   [normal_shield_no_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/fab/normal_shield_no_support.stl)
    The *with_support* version has already a support column included
    for printing the pin. If you chose the *no support* version, you need
    to use your slicer to create support for these.
- * [thin_shield_with_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/thin_shield_with_support.stl) and
-   [thin_shield_no_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/thin_shield_no_support.stl) : same, for thin shield.
+ * [thin_shield_with_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/fab/thin_shield_with_support.stl) and
+   [thin_shield_no_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/fab/thin_shield_no_support.stl) : same, for thin shield.
 
 If you have checked out code from github, you might need to first `make` it
 and reload the STLs in the 3mf. The STLs and 3mf are usually only updated in
