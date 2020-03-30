@@ -55,8 +55,9 @@ Recommended
  * [normal_shield_with_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/fab/normal_shield_with_support.stl) and
    [normal_shield_no_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/fab/normal_shield_no_support.stl)
    The *with_support* version has already a support column included
-   for printing the pin. If you chose the *no support* version, you need
-   to use your slicer to create support for these.
+   for printing the pin. Make sure you have **thin wall detection** enabled in
+   your slicer. If you choose the *no support* version, you need
+   to use your slicer to create support for the mounting pins.
  * [thin_shield_with_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/fab/thin_shield_with_support.stl) and
    [thin_shield_no_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/fab/thin_shield_no_support.stl) : same, for thin shield.
 
