@@ -11,27 +11,16 @@ e=0.01;
 // Intermediate git release WIP add a '
 version_number="5";
 
-front_hole_r = 5.5;   // TODO: if we use that with thinner bands: needs adjust
-
 support_column_foot_thickness=1.2;  // support-column: this much extra wide foot
 support_wall=0.5; // Use 0.5 if slicer can detect thin walls.
+support_column_radius=4.5;
 
-// mm to move the pin up
-vertical_pin_shift=7;  // mm
-
+pin_diameter=5;  // mm
 print_layer_height=0.3;   // Layer thickness we're printing
 
 // Experimental stacking.
 default_stack_height = 3;
-provide_stack_separation_support=false;    // very experimental.
-stack_separation=(provide_stack_separation_support ? 4 : 1)
-  * print_layer_height;  // With support, 4 layers if printing at 0.30mm;
-
-// Support between stack layers
-stack_support_width=support_wall;
-perforation_fan_angle=4;
-perforation_height=stack_separation;
-support_column_radius=4.5;
+stack_separation=print_layer_height;
 
 // Size of the band depending on if we request it to be 'thin'
 function get_band_thick(is_thin) = is_thin ? 15 : 20;
@@ -42,13 +31,21 @@ module maker_nexus_baseline_headband(version_text, is_thin=false) {
   difference() {
     translate([0, 20, offset]) import(file, convexity=10);
     // Maker nexus version number.
-    translate([85.4, -27, 0.5]) {
-      rotate([90, 0, -90]) linear_extrude(height=10) text("M", size=5, halign="center", font="style:Bold");
-      translate([0, 0, -7]) rotate([90, 0, -90]) linear_extrude(height=10) text("N", size=6, halign="center", font="style:Bold");
+    translate([87, -25, 0]) union() {
+      translate([0, 0, 1]) rotate([90, 0, 90]) linear_extrude(height=1) text("M", size=5, halign="center", font="style:Bold");
+      translate([0, 0, -6]) rotate([90, 0, 90]) linear_extrude(height=1) text("N", size=6, halign="center", font="style:Bold");
+      translate([0, 4, -4]) rotate([90, 0, 90]) linear_extrude(height=1)
+        text(str(version_text, version_number),
+             size=8, halign="left", font="style:Bold");
     }
-    translate([85.7, -48, -4]) rotate([90, 0, -90]) linear_extrude(height=10)
-      text(str(version_text, version_number),
-           size=8, halign="right", font="style:Bold");
+
+    // Prusa + Adafruit Attribution
+    translate([-87, -12, -5]) rotate([90, 0, -90]) union() {
+      translate([0, 3.5, 0]) linear_extrude(height=1) text("Prusa", size=8, halign="center", font="style:Bold");
+      translate([-0.4, -1.5, 0]) linear_extrude(height=1) text("+Adafruit", size=4, halign="center", font="style:Bold");
+    }
+
+    translate([75, -25, -12]) rotate([90, 0, 90]) scale([-0.12, 0.12, 0.1]) surface("img/maker-nexus.png");
   }
 }
 
@@ -59,9 +56,8 @@ module support_column(angle=0, dist=0, wall_thick=support_wall,
   // distances were originally calibrated for r=5mm
   dist=dist-(5-support_column_radius);
   band_thick = get_band_thick(is_thin);
-  relative_below = (get_band_thick(false) - band_thick) / 2;
   level_thick=0.6;
-  support_platform=vertical_pin_shift - print_layer_height - relative_below;
+  support_platform = (get_band_thick(is_thin) - pin_diameter)/2 - print_layer_height;
   h=is_last ? support_platform : band_thick + stack_separation;
 
   color("yellow") rotate([0, 0, angle]) translate([0, dist, -band_thick/2])
@@ -109,29 +105,17 @@ module support_column(angle=0, dist=0, wall_thick=support_wall,
 // as we just use this as a cut-out where we do the material-move operation.
 // There we just move the bottom part up and replace the bottom part with
 // what we found above (angles, positions determined empirically)
-pin_angle_distances = [ [18.5, 91], [-18.5, 91], [69, 97.5], [-69, 97.5]];
+pin_angle_distances = [ [18.5, 94], [-18.5, 94], [69, 100.5], [-69, 100.5]];
 
 module print_shield(version_text, do_punches=true, pin_support=false,
                     is_thin=false, is_first=true, is_last=true) {
   maker_nexus_baseline_headband(version_text, is_thin);
   // Add support for the pins.
   if (pin_support) {
-    for (x = pin_angle_distances) support_column(x[0], x[1]+3,
+    for (x = pin_angle_distances) support_column(x[0], x[1],
                                                  is_thin=is_thin,
                                                  is_last=is_last,
                                                  is_first=is_first);
-  }
-}
-
-module perforation_fan(wide=stack_support_width, high=perforation_height) {
-  for (a = [-40:perforation_fan_angle:180+40]) rotate([0, 0, a]) cube([120, wide, high]);
-}
-module perforation(is_thin=false) {
-  h=perforation_height;
-  place_on_top = get_band_thick(is_thin) / 2;
-  color("yellow") render() translate([0, 0, h-10+place_on_top]) intersection() {
-    baseline_headband();
-    translate([0, 0, 10-h]) perforation_fan(high=h);
   }
 }
 
@@ -146,7 +130,6 @@ module print_stack(count=default_stack_height, is_thin=false) {
       print_shield(base_version, pin_support=true,
                    is_first=is_first, is_last=is_last,
                    is_thin=is_thin, do_punches=!is_thin);
-      if (provide_stack_separation_support && !is_last) perforation(is_thin);
     }
   }
 }
@@ -176,7 +159,5 @@ module thin_stack_with_support() {
 }
 
 // Local testing call. Can be left in, it will be ignored in the Makefile.
-//normal_shield_with_support();
 thin_shield_with_support();
 //print_stack(3, is_thin=true);
-//baseline_headband();
