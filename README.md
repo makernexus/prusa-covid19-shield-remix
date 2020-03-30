@@ -36,20 +36,25 @@ Simply get the [latest release](https://github.com/hzeller/prusa-covid19-shield-
 #### Release content
 
 We distinguish between 'normal shield' and 'thin shield': the thinner one
-only prints 15mm high (vs the normal 20mm) and does not have holes. It has
-*not* been tested yet if it is stable enough for holding the shield, so **for
-now only print the normal shield** until further notice.
+only prints 15mm high (vs the normal 20mm).
 
- * [normal_shield_0.3mm_PETG_MK3S.gcode](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.3/normal_shield_0.3mm_PETG_MK3S.gcode)
-   GCode files ready to go on Prusa MK3(s) with
-   0.3mm layer, 100% infill, 240°C temp for PETG printing.
- * [normal_shield.3mf](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.3/normal_shield.3mf) for direct use in prusa-slicer
+#### Cut to the chase: GCode ready to use
+
+Recommended
+
+  * For PETG [thin_shield_0.3mm_PETG_MK3S.gcode](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/fab/thin_shield_0.3mm_PETG_MK3S.gcode) GCode files ready to go on Prusa MK3(s) with 0.3mm layer, 100% infill, 240°C temp for PETG printing. This prints a thin band which is faster to print and works fine.
+  * For PLA: [normal_shield_0.3mm_PLA_MK3S.gcode](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/fab/normal_shield_0.3mm_PETG_MK3S.gcode) GCode files ready to go on Prusa MK3(s) with 0.3mm layer, 100% infill for for PLA. Currently this is the thicker band as we still need to test if the thinner band will work with PLA.
+
+#### More files
+ * [normal_shield.3mf](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/normal_shield.3mf) and [thin_shield.3mf](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/thin_shield.3mf) for direct use in prusa-slicer
    (or other slicers that understand 3mf files).
- * [normal_shield_with_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.3/normal_shield_with_support.stl) and
-   [normal_shield_no_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.3/normal_shield_no_support.stl): normal
-   shield. The *support* version has already a support column included
+ * [normal_shield_with_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/normal_shield_with_support.stl) and
+   [normal_shield_no_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/normal_shield_no_support.stl)
+   The *with_support* version has already a support column included
    for printing the pin. If you chose the *no support* version, you need
    to use your slicer to create support for these.
+ * [thin_shield_with_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/thin_shield_with_support.stl) and
+   [thin_shield_no_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/thin_shield_no_support.stl) : same, for thin shield.
 
 If you have checked out code from github, you might need to first `make` it
 and reload the STLs in the 3mf. The STLs and 3mf are usually only updated in
