@@ -41,9 +41,37 @@ module baseline_headband() {
   translate([7.8, 9, 2.5]) import("baseline/covid19_headband_rc3.stl", convexity=10);
 }
 
+// We need a larger radius for better access of sanitization.
+module original_radius_fill(is_left=true) {
+  p = is_left ? -1 : 1;
+  // Plug the provided fillets. This is, uhm, eyeballed
+  hull() {
+    translate([p*84, -17.3, -10]) cylinder(r=2.4, h=20);  // measured 2.1
+    translate([p*82.9, -11.5, -10]) translate([-3, 0, 0]) rotate([0, 0, p*5]) cube([6, e, 20]);
+  }
+
+  hull() {
+    translate([p*70.85, 43.25, -10]) cylinder(r=2, h=20);  // measured 1
+    translate([p*75.85, 36.6, -10]) color("yellow") rotate([0, 0, p*38]) translate([-3, 0, 0]) cube([6, e, 20]);
+  }
+}
+
+module new_radius_punch(is_left=true) {
+  p = is_left ? -1 : 1;
+  translate([p*82.9, -11.5, -10-e]) color("yellow") cylinder(r=2.1, h=20+2*e);
+  translate([p*75.85, 36.6, -10-e]) cylinder(r=1.5, h=20+2*e);
+}
+
 module maker_nexus_baseline_headband(version_text, height_scale=1.0) {
   difference() {
-    scale([1, 1, height_scale]) baseline_headband();
+    scale([1, 1, height_scale]) {
+      baseline_headband();
+      original_radius_fill(false);
+      original_radius_fill(true);
+    }
+
+    new_radius_punch(false);
+    new_radius_punch(true);
 
     // Maker nexus version number.
     translate([85.4, -37, 0.5]) {
