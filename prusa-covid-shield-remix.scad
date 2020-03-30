@@ -9,7 +9,7 @@ e=0.01;
 
 // Running version number. Should align with v1.x release.
 // Intermediate git release WIP add a '
-version_number="3'";
+version_number="4";
 
 front_hole_r = 5.5;   // TODO: if we use that with thinner bands: needs adjust
 
@@ -220,10 +220,10 @@ module print_stack(count=default_stack_height, is_thin=false) {
 //-- Some functions which we use to generate named STLs directly from these.
 
 module normal_shield_no_support() {
-  print_shield("N", do_punches=true, pin_support=false);
+  print_shield("N", do_punches=false, pin_support=false);
 }
 module normal_shield_with_support() {
-  print_shield("N", do_punches=true, pin_support=true);
+  print_shield("N", do_punches=false, pin_support=true);
 }
 module thin_shield_no_support() {
   print_shield("T", do_punches=false, pin_support=false, is_thin=true);
