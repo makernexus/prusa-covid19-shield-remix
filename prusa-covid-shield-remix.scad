@@ -9,7 +9,7 @@ e=0.01;
 
 // Running version number. Should align with v1.x release.
 // Intermediate git release WIP add a '
-version_number="4";
+version_number="5";
 
 front_hole_r = 5.5;   // TODO: if we use that with thinner bands: needs adjust
 
