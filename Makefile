@@ -1,7 +1,8 @@
 ALL_OUTPUT=$(addprefix fab/, \
              normal_shield_no_support.stl normal_shield_with_support.stl \
              thin_shield_no_support.stl thin_shield_with_support.stl \
-             normal_stack3_with_support.stl thin_stack3_with_support.stl)
+             normal_stack3_with_support.stl thin_stack3_with_support.stl \
+             thin_stack6_with_support.stl)
 
 # The 3mf file does not store the relative directory for some reason, so
 # we have to put it here, to be able to easily reload-from-disk
@@ -34,6 +35,7 @@ fab/thin_shield_no_support.stl:
 fab/thin_shield_with_support.stl:
 fab/normal_stack3_with_support.stl:
 fab/thin_stack3_with_support.stl:
+fab/thin_stack6_with_support.stl:
 
 clean:
 	rm -f $(ALL_OUTPUT) $(ALL_OUTPUT:=.deps) *.stl

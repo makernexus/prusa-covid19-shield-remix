@@ -29,7 +29,7 @@ stack_separation=(provide_stack_separation_support ? 4 : 1)
 
 // Support between stack layers
 stack_support_width=support_wall;
-perforation_fan_angle=4;
+perforation_fan_angle=4.1;
 perforation_height=stack_separation;
 support_column_radius=4.5;
 
@@ -192,14 +192,27 @@ module print_shield(version_text, do_punches=true, pin_support=false,
 }
 
 module perforation_fan(wide=stack_support_width, high=perforation_height) {
-  for (a = [-40:perforation_fan_angle:180+40]) rotate([0, 0, a]) cube([120, wide, high]);
+    start = 35;  // Start right at the edge of the end of the bracket.
+    sweep = 110;
+    for (a = [-start:perforation_fan_angle:start+sweep/2]) rotate([0, 0, a]) #cube([120, wide, high]);
+    for (a = [start+180:-perforation_fan_angle:180-sweep]) rotate([0, 0, a]) #cube([120, wide, high]);
 }
+
+module perforation_tail(wide=stack_support_width, high=perforation_height) {
+    for (offset = [0:2:6]) translate([-120, -61+offset, 0]) #cube([105*2, wide, high]);
+}
+
+
 module perforation(is_thin=false) {
   h=perforation_height;
   place_on_top = get_band_thick(is_thin) / 2;
   color("yellow") render() translate([0, 0, h-10+place_on_top]) intersection() {
     baseline_headband();
     translate([0, 0, 10-h]) perforation_fan(high=h);
+   }
+  color("yellow") render() translate([0, 0, h-10+place_on_top]) intersection() {
+    baseline_headband();
+    translate([0, 0, 10-h]) perforation_tail(high=h);
   }
 }
 
@@ -241,6 +254,9 @@ module normal_stack3_with_support() {
 }
 module thin_stack3_with_support() {
   print_stack(5, is_thin=true);
+}
+module thin_stack6_with_support() {
+  print_stack(6, is_thin=true);
 }
 
 // Local testing call. Can be left in, it will be ignored in the Makefile.
