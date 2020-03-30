@@ -10,7 +10,7 @@ release: fab/normal_shield_with_support.stl fab/thin_shield_with_support.stl
 
 # Same for stacks: prepare the STLs and link to local directory where 3mf
 # is. That way, we can do a simple 'reload from disk'
-stacks: fab/thin-stack3.stl fab/thin-stack4.stl fab/thin-stack5.stl
+stacks: fab/thin-stack2.stl fab/thin-stack3.stl fab/thin-stack4.stl fab/thin-stack5.stl
 	ln -sf $^ .
 
 # Building all the possible STLs.
@@ -26,6 +26,9 @@ fab/%.scad : prusa-covid-shield-remix.scad
 
 # Configure
 # There certainly is a better Makefile way to describe this 3, 4, 5 pattern...
+fab/thin-stack2.stl: fab/thin_stack_with_support.scad
+	openscad -o $@ -Ddefault_stack_height=2 -Dprint_layer_height=0.25 -Dsupport_wall=1.1 -d $@.deps $<
+
 fab/thin-stack3.stl: fab/thin_stack_with_support.scad
 	openscad -o $@ -Ddefault_stack_height=3 -Dprint_layer_height=0.25 -Dsupport_wall=1.1 -d $@.deps $<
 
