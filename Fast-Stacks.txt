@@ -1,0 +1,89 @@
+Prusa's RC3 && RC3.1 releases included stacked versions of the headband with .3mf files configured to print extremely fast.  I've taken the .3mf they created and adapted it to our model with a few tweaks.
+
+To generate the stacked model in OpenSCAD, I changed the following settings / vars:
+
+support_wall: 0.5 -> 1.1	// 1.1 will produce 2 perimeters @ 5.5mm each
+print_layer_height: 0.3 -> 0.25	// To match Prusa's && it seems to work well for separation
+provide_stack_separation_support: true -> false	// No need for separation support with the Prusa technique
+
+// At end of .scad, comment out normal_shield...() and enable print_stack() with desired stack height
+
+Here are the changes that I've made in PrusaSlicer (I'm using 2.2RC2):
+
+Printer Settings:
+
+- New starting g-code for a little more accurate and cleaner start/mesh leveling
+- Set "Supports remaining times"
+  * uncheck this if you're on an older firmware that doesn't support it or want to see elapsed time instead of time remaining on the display
+
+Print Settings:
+
+- Set perimeters to 3 (from 2)
+- Set Infill to 100% / Rectilinear (from 5% Grid)
+- Change skirt height to 1 layer (from 3)
+
+Plater / Model:
+
+- Add and arrange 2 stacks and the requisite number of lower support pieces
+- Add height range modifiers for headband stack model:
+    * 0.2mm - 1.0mm * 0.2mm layer height	// Produces an even number of layers to match the .2mm first layer with .25mm layer height
+    ** Thin model **
+    * 15.0mm - 15.5mm * 0.25mm layer height
+      * Extrusion Width modifier
+        External perimeters:	0.45
+        Infill:			0.5
+        Perimeters:		0.45
+        Solid infill:		0.5
+        Top solid infill:       0.4
+      * Speed modifier
+        Bridges:		20mm/s
+	External perimeters:	40mm/s
+        Gap fill:		40mm/s
+        Infill:			60mm/s
+        Perimeters:		40mm/s
+        Small perimeters:	25mm/s
+        Solid Infill:		60mm/s
+    * 30.25mm - 30.75mm * 0.25mm layer height
+      * Same modifiers as above
+    * 45.5mm - 41.0mm * 0.25mm layer height
+      * Same modifiers as above
+
+    ** Each gap / transition needs the above modifiers decrease speed and extrusion width
+    ** The modifier covers the gap layer and the first layer above it
+    ** Additional changes in the Printer Settings / Before layer change G-code end up setting the extrusion multiplier to 90% for the 1st layer in the new object, 95% for the 2nd layer and then returns to 100% for the 3rd and subsequent layers (until the next gap/transition)
+
+- Add height range modifier for lower support object
+    * 0.2mm - 1.0mm * 0.2mm layer height	// Matches layers with headband stack
+
+- Add custom g-code to Printer Settings / Before layer change G-code
+
+  ** For thin model
+
+;BEFORE_LAYER_CHANGE
+{if layer_num == 1}M221 S90 ; set flow to 90 %{endif}
+{if layer_num == 2}M221 S95 ; set flow to 95 %{endif}
+{if layer_num < 3}M220 S100 ; set speed to 100 %{endif}
+{if layer_num == 3}M221 S100 ; set flow back to 100 % {endif}
+;There is a triplet of "if layer_num" for each new object above the first layer
+;in the stack.  The layer numbers should match the 1st, 2nd and 3rd layer of the stack
+;Confirm the correct values by slicing and viewing the layer number in the Preview view
+{if layer_num == 63}M221 S90 ; set flow to 90 % {endif}
+{if layer_num == 64}M221 S95 ; set flow to 95 % {endif}
+{if layer_num == 65}M221 S100 ; set flow back to 100 % {endif}
+{if layer_num == 124}M221 S90 ; set flow to 90 % {endif}
+{if layer_num == 125}M221 S95 ; set flow to 95 % {endif}
+{if layer_num == 126}M221 S100 ; set flow back to 100 % {endif}
+{if layer_num == 185}M221 S90 ; set flow to 90 % {endif}
+{if layer_num == 186}M221 S95 ; set flow to 95 % {endif}
+{if layer_num == 187}M221 S100 ; set flow back to 100 % {endif}
+;[layer_z]
+
+The above settings / adjustments are mostly to enable clean printing of the gap and transition from one headband to the next.  And to enable an easy separation without damaging the print (and hopefully without leaving sharp remnants behind).
+
+
+How it runs so fast:
+
+.25mm layer height
+Fast speeds for print moves (Perimeters: 160mm/s, Infill: 240mm/s)
+Thicker extrusion width: (.55mm default - on a .4mm nozzle!)
+
