@@ -43,7 +43,7 @@ only prints 15mm high (vs the normal 20mm).
 Recommended
 
   * For PETG [thin_shield_0.3mm_PETG_MK3S.gcode](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/fab/thin_shield_0.3mm_PETG_MK3S.gcode) GCode files ready to go on Prusa MK3(s) with 0.3mm layer, 100% infill, 240°C temp for PETG printing. This prints a thin band which is faster to print and works fine.
-  * For PLA: [normal_shield_0.3mm_PLA_MK3S.gcode](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/fab/normal_shield_0.3mm_PETG_MK3S.gcode) GCode files ready to go on Prusa MK3(s) with 0.3mm layer, 100% infill for for PLA. Currently this is the thicker band as we still need to test if the thinner band will work with PLA.
+  * For PLA: [normal_shield_0.3mm_PLA_MK3S.gcode](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/fab/normal_shield_0.3mm_PLA_MK3S.gcode) GCode files ready to go on Prusa MK3(s) with 0.3mm layer, 100% infill for for PLA. Currently this is the thicker band as we still need to test if the thinner band will work with PLA.
 
 #### More files
  * [normal_shield.3mf](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/normal_shield.3mf) and [thin_shield.3mf](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.4/thin_shield.3mf) for direct use in prusa-slicer
