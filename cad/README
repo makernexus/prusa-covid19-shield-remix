@@ -6,6 +6,8 @@ License: Creative Commons, Attributionn
 https://creativecommons.org/licenses/by-nc/2.0/
 
 MakerNexus modifications to address local healthcare community feedback.
+
+v4:
   * Make lighter (we thinned the band).
   * Make the radii of crevices larger to facilitate easier cleaning.
 
@@ -17,3 +19,8 @@ provided by Adafruit This includes changes based on feedback from our
 healthcare providers.
 
 Adafruit tutorial: http://youtube.com/watch?v=BYPWB5-auQE
+
+Files:
+
+* Protective Face Shield.f3d - Original Adafruit Fusion 3D pulled 3/31/2020
+* prusa-faceshield-with-MakerNexus-mods.v4.f3z
