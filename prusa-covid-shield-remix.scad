@@ -58,7 +58,7 @@ module support_column(angle=0, dist=0, wall_thick=support_wall,
   // distances were originally calibrated for r=5mm
   dist=dist-(5-support_column_radius);
   band_thick = get_band_thick(is_thin);
-  level_thick=0.6;
+  level_thick=2*print_layer_height;
   support_platform = (get_band_thick(is_thin) - pin_diameter)/2 - print_layer_height;
   h=is_last ? support_platform : band_thick + stack_separation;
 
