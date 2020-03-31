@@ -28,14 +28,16 @@ function get_band_thick(is_thin) = is_thin ? 15 : 20;
 module maker_nexus_baseline_headband(version_text, is_thin=false) {
   file = str("baseline/RC2-nexusized-", (is_thin ? "thin":"normal"), ".stl");
   offset = -get_band_thick(is_thin) / 2;
+  text_depth=0.2;
   difference() {
     translate([0, 20, offset]) import(file, convexity=10);
+
     // Prusa Attribution
-    translate([-86.5, -7, -5]) rotate([90, 0, -90])
+    translate([-87.2 + text_depth, -14, -5]) rotate([90, 0, -90])
       translate([0, 1, 0]) linear_extrude(height=2) text("Prusa", size=9, halign="center", font="style:Bold");
 
     // Maker Nexus Attribution
-    translate([86.7, -30, 0]) {
+    translate([87.26 - text_depth, -30, 0]) {
       translate([0, 4, 1]) rotate([90, 0, 90]) linear_extrude(height=1)
         text("Maker", size=5, halign="left", font="style:Bold");
       translate([0, 4, -5]) rotate([90, 0, 90]) linear_extrude(height=1)
@@ -43,7 +45,7 @@ module maker_nexus_baseline_headband(version_text, is_thin=false) {
     }
 
     // Keep track of MakerNexus Version number
-    translate([85.3, -48, -4]) rotate([90, 0, -90]) linear_extrude(height=1)
+    translate([84.75 + text_depth, -48, -4]) rotate([90, 0, -90]) linear_extrude(height=1)
       text(str(version_text, version_number),
            size=8, halign="right", font="style:Bold");
   }
