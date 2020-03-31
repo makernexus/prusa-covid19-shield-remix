@@ -30,22 +30,25 @@ module maker_nexus_baseline_headband(version_text, is_thin=false) {
   offset = -get_band_thick(is_thin) / 2;
   difference() {
     translate([0, 20, offset]) import(file, convexity=10);
-    // Maker nexus version number.
-    translate([87, -25, 0]) union() {
-      translate([0, 0, 1]) rotate([90, 0, 90]) linear_extrude(height=1) text("M", size=5, halign="center", font="style:Bold");
-      translate([0, 0, -6]) rotate([90, 0, 90]) linear_extrude(height=1) text("N", size=6, halign="center", font="style:Bold");
-      translate([0, 4, -4]) rotate([90, 0, 90]) linear_extrude(height=1)
-        text(str(version_text, version_number),
-             size=8, halign="left", font="style:Bold");
-    }
-
     // Prusa + Adafruit Attribution
     translate([-87, -12, -5]) rotate([90, 0, -90]) union() {
       translate([0, 3.5, 0]) linear_extrude(height=1) text("Prusa", size=8, halign="center", font="style:Bold");
       translate([-0.4, -1.5, 0]) linear_extrude(height=1) text("+Adafruit", size=4, halign="center", font="style:Bold");
     }
 
+    // Maker Nexus Attribution
+    translate([87, -30, 0]) union() {
+      translate([0, 4, 1]) rotate([90, 0, 90]) linear_extrude(height=1)
+        text("Maker", size=5, halign="left", font="style:Bold");
+      translate([0, 4, -5]) rotate([90, 0, 90]) linear_extrude(height=1)
+        text("Nexus", size=5, halign="left", font="style:Bold");
+    }
+
+    // Maker Nexus Version number
     translate([83.5, -27, -10]) rotate([90, 0, 90]) linear_extrude(height=1.5) scale([-0.1, 0.1, 0.1]) #import("img/maker-nexus.dxf", convexity=10);
+    translate([83.5, -13, -4]) rotate([90, 0, -83]) linear_extrude(height=1)
+      text(str(version_text, version_number),
+           size=8, halign="left", font="style:Bold");
   }
 }
 
