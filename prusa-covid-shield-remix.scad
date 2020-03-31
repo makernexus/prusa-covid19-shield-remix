@@ -45,7 +45,7 @@ module maker_nexus_baseline_headband(version_text, is_thin=false) {
       translate([-0.4, -1.5, 0]) linear_extrude(height=1) text("+Adafruit", size=4, halign="center", font="style:Bold");
     }
 
-    translate([75, -25, -12]) rotate([90, 0, 90]) scale([-0.12, 0.12, 0.1]) surface("img/maker-nexus.png");
+    translate([83.5, -27, -10]) rotate([90, 0, 90]) linear_extrude(height=1.5) scale([-0.1, 0.1, 0.1]) #import("img/maker-nexus.dxf", convexity=10);
   }
 }
 
