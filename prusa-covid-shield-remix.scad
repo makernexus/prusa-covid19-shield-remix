@@ -107,7 +107,7 @@ module support_column(angle=0, dist=0, wall_thick=support_wall,
 // as we just use this as a cut-out where we do the material-move operation.
 // There we just move the bottom part up and replace the bottom part with
 // what we found above (angles, positions determined empirically)
-pin_angle_distances = [ [18.5, 94], [-18.5, 94], [69, 100.5], [-69, 100.5]];
+pin_angle_distances = [ [18.5, 94.8], [-18.5, 94.8], [69, 100.5], [-69, 100.5]];
 
 module print_shield(version_text, do_punches=true, pin_support=false,
                     is_thin=false, is_first=true, is_last=true) {
