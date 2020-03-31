@@ -125,7 +125,7 @@ module print_shield(version_text, do_punches=true, pin_support=false,
 // Print a stack of face-shields.
 module print_stack(count=default_stack_height, is_thin=false) {
   stack_distance = get_band_thick(is_thin) + stack_separation;
-  base_version = str("s", is_thin ? "t" : "");
+  base_version = str("s", is_thin ? "" : "n");
   for (i = [0:1:count-e]) {
     translate([0, 0, i*stack_distance]) {
       is_first = (i == 0);
