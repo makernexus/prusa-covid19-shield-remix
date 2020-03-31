@@ -1,11 +1,13 @@
 ALL_OUTPUT=$(addprefix fab/, \
              normal_shield_no_support.stl normal_shield_with_support.stl \
              thin_shield_no_support.stl thin_shield_with_support.stl \
-             normal_stack3_with_support.stl thin_stack3_with_support.stl \
+             thin-stack2.stl thin-stack3.stl thin-stack4.stl thin-stack5.stl \
              bottom_reinforcement.stl)
 
 # The 3mf file does not store the relative directory for some reason, so
 # we have to put it here, to be able to easily reload-from-disk
+# Reload-from-disk still needs to be manually (is there a commandline option
+# for prusa-slicer to do that?)
 release: fab/normal_shield_with_support.stl fab/thin_shield_with_support.stl
 	ln -sf $^ .
 
@@ -14,7 +16,7 @@ release: fab/normal_shield_with_support.stl fab/thin_shield_with_support.stl
 stacks: fab/thin-stack2.stl fab/thin-stack3.stl fab/thin-stack4.stl fab/thin-stack5.stl
 	ln -sf $^ .
 
-# Building all the possible STLs.
+# Building all the STLs we also push in fab/
 all: $(ALL_OUTPUT)
 
 # Uncomment to keep the scad intermediate files.
