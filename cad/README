@@ -1,0 +1,7 @@
+Fusion 360 file.
+Originally created by Adafruit, making a parametric model from the STL/Step files
+provided by Prusa.
+
+MakerNexus modifications to address local healthcare community feedback.
+  * Make lighter (we thinned the band).
+  * Make the radii of crevices larger to facilitate easier cleaning. 
