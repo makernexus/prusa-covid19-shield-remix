@@ -1,7 +1,8 @@
 ALL_OUTPUT=$(addprefix fab/, \
              normal_shield_no_support.stl normal_shield_with_support.stl \
              thin_shield_no_support.stl thin_shield_with_support.stl \
-             normal_stack3_with_support.stl thin_stack3_with_support.stl)
+             normal_stack3_with_support.stl thin_stack3_with_support.stl \
+             bottom_reinforcement.stl)
 
 # The 3mf file does not store the relative directory for some reason, so
 # we have to put it here, to be able to easily reload-from-disk
@@ -24,7 +25,11 @@ fab/%.scad : prusa-covid-shield-remix.scad
 	mkdir -p fab
 	echo "use <../prusa-covid-shield-remix.scad>; $*();" > $@
 
-# Configure
+# The bottom reinforcment is just the same as the original.
+fab/bottom_reinforcement.stl : baseline/bottom_reinforcement.stl
+	cp $^ $@
+
+# Various stack arrangements.
 # There certainly is a better Makefile way to describe this 3, 4, 5 pattern...
 fab/thin-stack2.stl: fab/thin_stack_with_support.scad
 	openscad -o $@ -Ddefault_stack_height=2 -Dprint_layer_height=0.25 -Dsupport_wall=1.1 -d $@.deps $<
@@ -51,6 +56,7 @@ fab/normal_shield_no_support.stl:
 fab/normal_shield_with_support.stl:
 fab/thin_shield_no_support.stl:
 fab/thin_shield_with_support.stl:
+fab/thin-stack2.stl:
 fab/thin-stack3.stl:
 fab/thin-stack4.stl:
 fab/thin-stack5.stl:
