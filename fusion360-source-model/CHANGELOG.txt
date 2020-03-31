@@ -1,7 +1,0 @@
-v3/v4:
-
-* Started with Adafruit model of Prusa RC2
-* Remove Hexagon holes
-* Parameterize and thin the band
-* Extend elastic hook 2mm away from band
-* Increaese the radius of the joints by moving them farther away from attachment point.
