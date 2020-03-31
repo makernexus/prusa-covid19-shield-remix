@@ -2,6 +2,18 @@ Fusion 360 file.
 Originally created by Adafruit, making a parametric model from the STL/Step files
 provided by Prusa.
 
+License: Creative Commons, Attributionn
+https://creativecommons.org/licenses/by-nc/2.0/
+
 MakerNexus modifications to address local healthcare community feedback.
   * Make lighter (we thinned the band).
-  * Make the radii of crevices larger to facilitate easier cleaning. 
+  * Make the radii of crevices larger to facilitate easier cleaning.
+
+The baseline STL we were starting out with.
+https://www.prusaprinters.org/prints/25857-prusa-protective-face-shield-rc2
+
+The RC2-nexusized files are made by Rich Rauenzahn, using a CAD model
+provided by Adafruit This includes changes based on feedback from our
+healthcare providers.
+
+Adafruit tutorial: http://youtube.com/watch?v=BYPWB5-auQE
