@@ -46,6 +46,10 @@ Recommended
 
   * For PLA: [normal_shield_0.3mm_PLA_MK3S.gcode](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.5/fab/normal_shield_0.3mm_PLA_MK3S.gcode) (right click, download or *save link as...*) Same for PLA. Currently this is the regular sized band as we still need to test if the thinner band will work with PLA.
 
+The resulting headband has a version imprint on one temple:
+
+![](img/version-img.png)
+
 #### More files
 
 ![](./img/covid-headband-build-plate.png)
