@@ -21,6 +21,7 @@ When reviewing, the local healthcare providers requested
    * Weight-reduce front-part if possible.
    * Move the shield pins up so that there is material behind the openings
      of the shield-punches
+   * Larger radius of crevices to allow better sterilization access.
 
 Moving up the shield-pin requires a little bit of support material, but it
 is not a problem to generate the necessary STL file where the supports should
