@@ -124,7 +124,7 @@ pin_angle_distances = [ [18.5, 94.8], [-18.5, 94.8], [69, 100.5], [-69, 100.5]];
 
 module print_shield(version_text, do_punches=true, pin_support=false,
                     is_thin=false, is_first=true, is_last=true) {
-  //maker_nexus_baseline_headband(version_text, is_thin);
+  maker_nexus_baseline_headband(version_text, is_thin);
   // Add support for the pins.
   if (pin_support) {
     for (x = pin_angle_distances) support_column(x[0], x[1],
