@@ -13,7 +13,7 @@ version_number="5";
 
 support_column_foot_thickness=1.2;  // support-column: this much extra wide foot
 support_wall=0.5; // Use 0.5 if slicer can detect thin walls.
-support_column_radius=4.5;
+support_column_radius=5.0;
 
 pin_diameter=5;  // mm
 print_layer_height=0.3;   // Layer thickness we're printing
@@ -83,21 +83,33 @@ module support_column(angle=0, dist=0, wall_thick=support_wall,
           translate([-r, 0, 0]) cube([2*r, 3, level_thick]);
           cylinder(r=r-wall_thick, h=level_thick);
         }
+
+        // shelf supports
+        support_edge_length = 2 * print_layer_height;
+        translate([0, 0, support_platform-level_thick]) rotate([-90, 0, 0]) {
+          translate([-(r-wall_thick), 0, 0])  {
+            linear_extrude(height=r) polygon([[0, 0], [support_edge_length, 0], [0, support_edge_length]]);
+          }
+          translate([r-wall_thick, 0, 0]) {
+            linear_extrude(height=r) polygon([[0, 0], [-support_edge_length, 0], [0, support_edge_length]]);
+          }
+          rotate([90, 0, 0]) translate([0, 0, -support_edge_length]){
+            rotate_extrude(angle=180) translate([-(r-wall_thick), 0, 0]) polygon([[0, 0], [support_edge_length, support_edge_length], [0, support_edge_length]]);
+          }
+        }
       }
     }
 
-
     // Some stability foot if we're first. Don't make it entirely solid, as
     // that seems to be too well connected to the build-bed.
-    foot_width=support_column_foot_thickness/2;
     if (is_first) intersection() {
       translate([-15/2, -7.5, 0]) cube([15, 10, 1]);
       union() {
         difference() {
-          cylinder(r=r+foot_width, h=0.3);
-          translate([0, 0, -e]) cylinder(r=r-foot_width-wall_thick, h=0.3+2*e);
+          cylinder(r=r, h=.3);
+          translate([0, 0, -e]) cylinder(r=r-support_column_foot_thickness-wall_thick, h=0.3+2*e);
         }
-        translate([-(r+foot_width), 1, 0]) cube([2*(r+foot_width), 1.5, 0.3]);
+        translate([-r, 1, 0]) cube([2*r, 1.5, 0.3]);
       }
     }
   }
@@ -111,7 +123,7 @@ pin_angle_distances = [ [18.5, 94.8], [-18.5, 94.8], [69, 100.5], [-69, 100.5]];
 
 module print_shield(version_text, do_punches=true, pin_support=false,
                     is_thin=false, is_first=true, is_last=true) {
-  maker_nexus_baseline_headband(version_text, is_thin);
+  //maker_nexus_baseline_headband(version_text, is_thin);
   // Add support for the pins.
   if (pin_support) {
     for (x = pin_angle_distances) support_column(x[0], x[1],
