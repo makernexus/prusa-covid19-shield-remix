@@ -1,2 +1,5 @@
 fab/*.deps
 fab/*.scad
+baseline/maker-nexus-faceshield-cut.ps
+fab/thin-stack[6789].stl
+fab/normal-stack*stl
