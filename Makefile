@@ -2,7 +2,8 @@ ALL_OUTPUT=$(addprefix fab/, \
              normal_shield_no_support.stl normal_shield_with_support.stl \
              thin_shield_no_support.stl thin_shield_with_support.stl \
              thin-stack2.stl thin-stack3.stl thin-stack4.stl thin-stack5.stl \
-             bottom_reinforcement.stl) img/version-img.png
+             bottom_reinforcement.stl) \
+             img/version-img.png baseline/maker-nexus-faceshield-cut.dxf
 
 # The 3mf file does not store the relative directory for some reason, so
 # we have to put it here, to be able to easily reload-from-disk
@@ -54,6 +55,12 @@ fab/thin-stack5.stl: fab/thin_stack_with_support.scad
 
 %_support.stl: %_support.scad
 	openscad -o $@ $<
+
+%.dxf : %.ps
+	pstoedit -nb -dt -f "dxf_s:-mm -ctl -splineaspolyline" $^ $@
+
+%.ps : %.svg
+	inkscape -f $^ -E $@
 
 # Unfortunately, we have to use the UI curently. For some reason the
 # resulting gcode is entirely different if created on the command line.
