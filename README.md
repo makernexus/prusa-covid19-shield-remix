@@ -79,6 +79,8 @@ arrangements. The 3mf's with 'FAST' in their name are tweaked for very fast
 prints, but it requires some tweaking depending on your filament to get the
 flow-rate right and the separability correct.
 
+![](./img/covid-headband-stacked-build-plate.png)
+
 The way these stacks work is that they have a one-layer gap between them, with
 the intent to have a weak layer adhesion there to be able to separate, but
 still strong enough to print the next layers. This is the reason why it also
