@@ -34,7 +34,7 @@ printer adjustments, *.stl allows to use in your own slicer.
 
 Simply get the [latest release](https://github.com/hzeller/prusa-covid19-shield-remix/releases).
 
-#### Release content
+### Release content
 
 We distinguish between 'normal shield' and 'thin shield': the thinner one
 only prints 15mm high (vs the normal 20mm).
@@ -73,7 +73,7 @@ and reload the STLs in the 3mf. The STLs and 3mf are usually only updated in
 git for a new release (click on the stl in the list on the right in prusa slicer
 and say 'reload from disk').
 
-### Stacked arrangement
+#### Stacked arrangement
 There are 3mf's for stacks and makefile-rules to create various height stack
 arrangements. The 3mf's with 'FAST' in their name are tweaked for very fast
 prints, but it requires some tweaking depending on your filament to get the
@@ -96,6 +96,16 @@ the stacks and slice these.
 make fab/thin-stack3.stl   # for PETG printing
 make fab/normal-stack3.stl # for PLA printing
 ```
+
+### Faceshield
+
+The face-shield has been optimized at MakerNexus to meet the needs of the
+healthcare workers to be also protected above the headband. You find the
+[maker-nexus-faceshield-cut.svg file](./baseline/maker-nexus-faceshield-cut.svg)
+and [maker-nexus-faceshield-cut.dxf](./baseline/maker-nexus-faceshield-cut.dxf)
+in the [baseline/](./baseline) subdirectory
+
+![](img/faceshield-render.png)
 
 ### Code
 
