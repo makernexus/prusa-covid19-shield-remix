@@ -2,7 +2,7 @@ ALL_OUTPUT=$(addprefix fab/, \
              normal_shield_no_support.stl normal_shield_with_support.stl \
              thin_shield_no_support.stl thin_shield_with_support.stl \
              thin-stack2.stl thin-stack3.stl thin-stack4.stl thin-stack5.stl \
-             bottom_reinforcement.stl img/version-img.png)
+             bottom_reinforcement.stl) img/version-img.png
 
 # The 3mf file does not store the relative directory for some reason, so
 # we have to put it here, to be able to easily reload-from-disk
