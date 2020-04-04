@@ -85,7 +85,7 @@ module support_column(angle=0, dist=0, wall_thick=support_wall,
         }
 
         // shelf supports
-        support_edge_length = 2 * print_layer_height;
+        support_edge_length = (r/2);
         translate([0, 0, support_platform-level_thick]) rotate([-90, 0, 0]) {
           translate([-(r-wall_thick), 0, 0])  {
             linear_extrude(height=r) polygon([[0, 0], [support_edge_length, 0], [0, support_edge_length]]);
@@ -97,6 +97,7 @@ module support_column(angle=0, dist=0, wall_thick=support_wall,
             rotate_extrude(angle=180) translate([-(r-wall_thick), 0, 0]) polygon([[0, 0], [support_edge_length, support_edge_length], [0, support_edge_length]]);
           }
         }
+        translate([-((r/2)+.5), 1, support_platform-(level_thick*2)]) cube([r+.5, 3, level_thick]);
       }
     }
 
