@@ -77,7 +77,8 @@ and say 'reload from disk').
 There are 3mf's for stacks and makefile-rules to create various height stack
 arrangements. The 3mf's with 'FAST' in their name are tweaked for very fast
 prints, but it requires some tweaking depending on your filament to get the
-flow-rate right and the separability correct.
+flow-rate right and the separability correct. For details about the speed
+improvements see the [Fast-Stacks](./Fast-Stacks.txt) documentation.
 
 ![](./img/covid-headband-stacked-build-plate.png)
 
