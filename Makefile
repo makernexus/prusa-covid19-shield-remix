@@ -20,18 +20,7 @@ stacks: fab/thin-stack2.stl fab/thin-stack3.stl fab/thin-stack4.stl fab/thin-sta
 # Building all the STLs we also push in fab/
 all: $(ALL_OUTPUT)
 
-# Uncomment to keep the scad intermediate files.
-# .SECONDARY: $(ALL_OUTPUT:.stl=.scad)
-
-# Create an scad file on-the-fly that calls that particular function
-fab/%.scad : prusa-covid-shield-remix.scad
-	mkdir -p fab
-	echo "use <../prusa-covid-shield-remix.scad>; $*();" > $@
-
-# The bottom reinforcment is just the same as the original.
-fab/bottom_reinforcement.stl : baseline/bottom_reinforcement.stl
-	cp $^ $@
-
+# -- concrete rules
 img/version-img.png: fab/thin_shield_no_support.scad
 	openscad -o$@-tmp.png --imgsize=1024,1024 \
              --camera=-0.5,-24.8,38,66.2,0,270,35 \
@@ -39,22 +28,28 @@ img/version-img.png: fab/thin_shield_no_support.scad
          && cat $@-tmp.png | pngtopnm | pnmcrop | pnmscale 0.25 | pnmtopng > $@
 	rm -f $@-tmp.png
 
-# Various stack arrangements.
-# There certainly is a better Makefile way to describe this 3, 4, 5 pattern...
-fab/thin-stack2.stl: fab/thin_stack_with_support.scad
-	openscad -o $@ -Ddefault_stack_height=2 -Dprint_layer_height=0.25 -Dsupport_wall=1.1 $<
+# The bottom reinforcment is just the same as the original.
+fab/bottom_reinforcement.stl : baseline/bottom_reinforcement.stl
+	cp $^ $@
 
-fab/thin-stack3.stl: fab/thin_stack_with_support.scad
-	openscad -o $@ -Ddefault_stack_height=3 -Dprint_layer_height=0.25 -Dsupport_wall=1.1 $<
-
-fab/thin-stack4.stl: fab/thin_stack_with_support.scad
-	openscad -o $@ -Ddefault_stack_height=4 -Dprint_layer_height=0.25 -Dsupport_wall=1.1 $<
-
-fab/thin-stack5.stl: fab/thin_stack_with_support.scad
-	openscad -o $@ -Ddefault_stack_height=5 -Dprint_layer_height=0.25 -Dsupport_wall=1.1 $<
-
+# -- pattern rules
+# Qualifying with a support suffix, to distinguish from bottom_reinforcement
 %_support.stl: %_support.scad
 	openscad -o $@ $<
+
+# Create an scad file on-the-fly that calls that particular function
+fab/%.scad : prusa-covid-shield-remix.scad
+	mkdir -p fab
+	echo "use <../prusa-covid-shield-remix.scad>; $*();" > $@
+
+# Various stack arrangements in different heights.
+define make-stack-rule
+fab/thin-stack$(1).stl: fab/thin_stack_with_support.scad
+	openscad -o "$$@" -Ddefault_stack_height=$(1) -Dprint_layer_height=0.25 -Dsupport_wall=1.1 $$<
+endef  # make-stack-rule
+
+# Create all the stack targets
+$(foreach i, 2 3 4 5, $(eval $(call make-stack-rule,$(i))))
 
 %.dxf : %.ps
 	pstoedit -nb -dt -f "dxf_s:-mm -ctl -splineaspolyline" $^ $@
@@ -72,10 +67,6 @@ fab/normal_shield_no_support.stl:
 fab/normal_shield_with_support.stl:
 fab/thin_shield_no_support.stl:
 fab/thin_shield_with_support.stl:
-fab/thin-stack2.stl:
-fab/thin-stack3.stl:
-fab/thin-stack4.stl:
-fab/thin-stack5.stl:
 
 clean:
 	rm -f $(ALL_OUTPUT) $(ALL_OUTPUT:=.deps) *.stl
