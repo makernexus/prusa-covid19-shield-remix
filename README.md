@@ -79,6 +79,14 @@ arrangements. The 3mf's with 'FAST' in their name are tweaked for very fast
 prints, but it requires some tweaking depending on your filament to get the
 flow-rate right and the separability correct.
 
+The way these stacks work is that they have a one-layer gap between them, with
+the intent to have a weak layer adhesion there to be able to separate, but
+still strong enough to print the next layers. This is the reason why it also
+requires some tweaking which is very dependent on the printer and filament you
+have, so we don't distribute any GCode. The gap height is 0.25mm, so this is
+the layer thickness needed in your slicer (or modify the `print_layer_height`
+in the Makefile).
+
 If you use a different slicer than Prusa slicer, you can also create STLs for
 the stacks and slice these.
 
