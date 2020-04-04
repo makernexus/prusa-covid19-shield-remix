@@ -44,12 +44,13 @@ fab/%.scad : prusa-covid-shield-remix.scad
 
 # Various stack arrangements in different heights.
 define make-stack-rule
-fab/thin-stack$(1).stl: fab/thin_stack_with_support.scad
+fab/$(2)-stack$(1).stl: fab/$(2)_stack_with_support.scad
 	openscad -o "$$@" -Ddefault_stack_height=$(1) -Dprint_layer_height=0.25 -Dsupport_wall=1.1 $$<
 endef  # make-stack-rule
 
 # Create all the stack targets
-$(foreach i, 2 3 4 5, $(eval $(call make-stack-rule,$(i))))
+$(foreach i, 2 3 4 5 6 7 8 9, $(eval $(call make-stack-rule,$(i),thin)))
+$(foreach i, 2 3 4 5 6 7 8 9, $(eval $(call make-stack-rule,$(i),normal)))
 
 %.dxf : %.ps
 	pstoedit -nb -dt -f "dxf_s:-mm -ctl -splineaspolyline" $^ $@

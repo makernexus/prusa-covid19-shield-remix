@@ -73,6 +73,20 @@ and reload the STLs in the 3mf. The STLs and 3mf are usually only updated in
 git for a new release (click on the stl in the list on the right in prusa slicer
 and say 'reload from disk').
 
+### Stacked arrangement
+There are 3mf's for stacks and makefile-rules to create various height stack
+arrangements. The 3mf's with 'FAST' in their name are tweaked for very fast
+prints, but it requires some tweaking depending on your filament to get the
+flow-rate right and the separability correct.
+
+If you use a different slicer than Prusa slicer, you can also create STLs for
+the stacks and slice these.
+
+```shell
+make fab/thin-stack3.stl   # for PETG printing
+make fab/normal-stack3.stl # for PLA printing
+```
+
 ### Code
 
 A simple OpenSCAD file that take the original STL and does the necessary
