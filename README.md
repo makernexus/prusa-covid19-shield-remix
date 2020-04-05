@@ -34,7 +34,7 @@ printer adjustments, *.stl allows to use in your own slicer.
 
 Simply get the [latest release](https://github.com/hzeller/prusa-covid19-shield-remix/releases).
 
-#### Release content
+### Release content
 
 We distinguish between 'normal shield' and 'thin shield': the thinner one
 only prints 15mm high (vs the normal 20mm).
@@ -43,9 +43,9 @@ only prints 15mm high (vs the normal 20mm).
 
 Recommended
 
-  * For PETG [thin_shield_0.3mm_PETG_MK3S.gcode](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.5/fab/thin_shield_0.3mm_PETG_MK3S.gcode) (right click, download or *save link as...*) GCode file placing 2 head-bands on build-plate. Ready to go on Prusa MK3(s) with 0.3mm layer, 100% infill, 240°C temp for PETG printing. This prints two thin bands which is faster to print and works fine with PETG.
+  * For PETG [thin_shield_0.3mm_PETG_MK3S.gcode](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.6/fab/thin_shield_0.3mm_PETG_MK3S.gcode) (right click, download or *save link as...*) GCode file placing 2 head-bands on build-plate. Ready to go on Prusa MK3(s) with 0.3mm layer, 100% infill, 240°C temp for PETG printing. This prints two thin bands which is faster to print and works fine with PETG.
 
-  * For PLA: [normal_shield_0.3mm_PLA_MK3S.gcode](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.5/fab/normal_shield_0.3mm_PLA_MK3S.gcode) (right click, download or *save link as...*) Same for PLA. Currently this is the regular sized band as we still need to test if the thinner band will work with PLA.
+  * For PLA: [normal_shield_0.3mm_PLA_MK3S.gcode](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.6/fab/normal_shield_0.3mm_PLA_MK3S.gcode) (right click, download or *save link as...*) Same for PLA. Currently this is the regular sized band as we still need to test if the thinner band will work with PLA.
 
 The resulting headband has a version imprint on one temple with a letter
 denoting `T` = thin band, `N` = normal band and `s` = stacked, followed
@@ -57,21 +57,56 @@ by a version number.
 
 ![](./img/covid-headband-build-plate.png)
 
- * [normal_shield.3mf](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.5/normal_shield.3mf) and [thin_shield.3mf](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.5/thin_shield.3mf) for direct use in prusa-slicer
+ * [normal_shield.3mf](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.6/normal_shield.3mf) and [thin_shield.3mf](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.6/thin_shield.3mf) for direct use in prusa-slicer
    (or other slicers that understand 3mf files).
- * [normal_shield_with_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.5/fab/normal_shield_with_support.stl) and
-   [normal_shield_no_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.5/fab/normal_shield_no_support.stl)
+ * [normal_shield_with_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.6/fab/normal_shield_with_support.stl) and
+   [normal_shield_no_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.6/fab/normal_shield_no_support.stl)
    The *with_support* version has already a support column included
    for printing the pin. Make sure you have **thin wall detection** enabled in
    your slicer. If you choose the *no support* version, you need
    to use your slicer to create support for the mounting pins.
- * [thin_shield_with_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.5/fab/thin_shield_with_support.stl) and
-   [thin_shield_no_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.5/fab/thin_shield_no_support.stl) : same, for thin shield.
+ * [thin_shield_with_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.6/fab/thin_shield_with_support.stl) and
+   [thin_shield_no_support.stl](https://github.com/hzeller/prusa-covid19-shield-remix/raw/v1.6/fab/thin_shield_no_support.stl) : same, for thin shield.
 
 If you have checked out code from github, you might need to first `make` it
 and reload the STLs in the 3mf. The STLs and 3mf are usually only updated in
 git for a new release (click on the stl in the list on the right in prusa slicer
 and say 'reload from disk').
+
+#### Stacked arrangement
+There are 3mf's for stacks and makefile-rules to create various height stack
+arrangements. The 3mf's with 'FAST' in their name are tweaked for very fast
+prints, but it requires some tweaking depending on your filament to get the
+flow-rate right and the separability correct. For details about the speed
+improvements see the [Fast-Stacks](./Fast-Stacks.txt) documentation.
+
+![](./img/covid-headband-stacked-build-plate.png)
+
+The way these stacks work is that they have a one-layer gap between them, with
+the intent to have a weak layer adhesion there to be able to separate, but
+still strong enough to print the next layers. This is the reason why it also
+requires some tweaking which is very dependent on the printer and filament you
+have, so we don't distribute any GCode. The gap height is 0.25mm, so this is
+the layer thickness needed in your slicer (or modify the `print_layer_height`
+in the Makefile).
+
+If you use a different slicer than Prusa slicer, you can also create STLs for
+the stacks and slice these.
+
+```shell
+make fab/thin-stack3.stl   # for PETG printing
+make fab/normal-stack3.stl # for PLA printing
+```
+
+### Faceshield
+
+The face-shield has been optimized at MakerNexus to meet the needs of the
+healthcare workers to be also protected above the headband. You find the
+[maker-nexus-faceshield-cut.svg file](./baseline/maker-nexus-faceshield-cut.svg)
+and [maker-nexus-faceshield-cut.dxf](./baseline/maker-nexus-faceshield-cut.dxf)
+in the [baseline/](./baseline) subdirectory
+
+![](img/faceshield-render.png)
 
 ### Code
 
@@ -84,7 +119,7 @@ A 3mf file is provided, so it can be loaded into slicer right away:
 ```
 git clone https://github.com/hzeller/prusa-covid19-shield-remix.git
 cd prusa-covid19-shield-remix
-prusa-slicer normal_shield.3mf
+prusa-slicer thin_shield.3mf
 ```
 
 ### GCode

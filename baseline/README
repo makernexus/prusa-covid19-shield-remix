@@ -8,3 +8,9 @@ provided by Adafruit This includes changes based on feedback from our
 healthcare providers.
 
 Adafruit tutorial: http://youtube.com/watch?v=BYPWB5-auQE
+
+The maker-nexus-faceshield-cut.svg is the laser cutting instruction for the
+faceshield. It has the MakerNexus improvements in coordination with the local
+healthcare providers, protecting above the head.
+maker-nexus-faceshield-cut.dxf is a DXF version of the same thing (it is
+created by the Makefile one level up, but checked in here for convenience).

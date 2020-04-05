@@ -6,8 +6,18 @@ License: Creative Commons, Attributionn
 https://creativecommons.org/licenses/by-nc/2.0/
 
 MakerNexus modifications to address local healthcare community feedback.
+
+Initial changes to Adafruit's model of Prusa RC2:
+
+  * Move pins to middle of band to close gaps behind shield
   * Make lighter (we thinned the band).
   * Make the radii of crevices larger to facilitate easier cleaning.
+
+4/3/2020:
+
+  * Make radii smaller to bring back some flexibility
+  * Fix divots at top which extended too far and missing radii
+  * Make divot offset 0.7 to accommodate 0.6 nozzle (experimental)
 
 The baseline STL we were starting out with.
 https://www.prusaprinters.org/prints/25857-prusa-protective-face-shield-rc2
