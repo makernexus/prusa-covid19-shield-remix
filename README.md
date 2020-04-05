@@ -43,7 +43,7 @@ We are only printing the 'thin' shield version now (15mm vs. 20mm before).
 
 Recommended
 
-  * For PETG [thin_shield_0.3mm_PETG_MK3S.gcode](https://github.com/makernexus/prusa-covid19-shield-remix/raw/v1.6/fab/thin_shield_0.3mm_PETG_MK3S.gcode) (right click, download or *save link as...*) GCode file placing 2 head-bands on build-plate. Ready to go on Prusa MK3(s) with 0.3mm layer, 100% infill, 240°C temp for PETG printing. This prints two thin bands which is faster to print and works fine with PETG.
+  * For PETG [T7-PETG-Prusa.gcode](https://github.com/makernexus/prusa-covid19-shield-remix/raw/v1.7/fab/T7-PETG-Prusa.gcode) (right click, download or *save link as...*) GCode file placing 2 head-bands on build-plate. Ready to go on Prusa MK3(s) with 0.3mm layer, 100% infill, 240°C temp for PETG printing. This prints two thin bands which is faster to print and works fine with PETG.
 
   * For PLA: [T7-PLA-Prusa.gcode](https://github.com/makernexus/prusa-covid19-shield-remix/raw/v1.7/fab/T7-PLA-Prusa.gcode) (right click, download or *save link as...*) Same for PLA. Currently this is the regular sized band as we still need to test if the thinner band will work with PLA.
 
@@ -90,8 +90,7 @@ If you use a different slicer than Prusa slicer, you can also create STLs for
 the stacks and slice these.
 
 ```shell
-make fab/thin-stack3.stl   # for PETG printing
-make fab/normal-stack3.stl # for PLA printing
+make fab/thin-stack3.stl
 ```
 
 ### Faceshield
