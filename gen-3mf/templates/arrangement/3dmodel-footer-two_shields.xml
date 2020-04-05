@@ -1,10 +1,9 @@
-  <object id="2" type="model"> <components> <component objectid="1" /> </components></object>
  </resources>
  <build>
   <!-- build-plate center is (125, 105)
        We move it (-22.5, -4.5) and (+22.5, +4.5)
   -->
   <item objectid="1" transform="-0.693867989 0.720102225 0 -0.720102225 -0.693867989 0 0 0 1 102.5 100.5 7.5" printable="1" />
-  <item objectid="2" transform="0.693867989 -0.720102225 0 0.720102225 0.693867989 0 0 0 1 147.5 109.5  7.5" printable="1" />
+  <item objectid="1" transform="0.693867989 -0.720102225 0 0.720102225 0.693867989 0 0 0 1 147.5 109.5  7.5" printable="1" />
  </build>
 </model>
