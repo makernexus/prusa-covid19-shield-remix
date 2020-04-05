@@ -20,10 +20,10 @@ stacks: fab/thin-stack2.stl fab/thin-stack3.stl fab/thin-stack4.stl fab/thin-sta
 all: $(ALL_OUTPUT)
 
 # -- concrete rules
-img/version-img.png: fab/thin_shield_no_support.scad
+img/version-img.png: fab/thin_shield_no_support.scad baseline/RC2-nexusized-thin.stl
 	openscad -o$@-tmp.png --imgsize=1024,1024 \
              --camera=-0.5,-24.8,38,66.2,0,270,35 \
-             --colorscheme=Nature $^ \
+             --colorscheme=Nature $< \
          && cat $@-tmp.png | pngtopnm | pnmcrop | pnmscale 0.25 | pnmtopng > $@
 	rm -f $@-tmp.png
 
@@ -33,7 +33,7 @@ fab/bottom_reinforcement.stl : baseline/bottom_reinforcement.stl
 
 # -- pattern rules
 # Qualifying with a support suffix, to distinguish from bottom_reinforcement
-%_support.stl: %_support.scad
+%_support.stl: %_support.scad baseline/RC2-nexusized-*.stl
 	openscad -o $@ $<
 
 # Create an scad file on-the-fly that calls that particular function
@@ -43,13 +43,12 @@ fab/%.scad : prusa-covid-shield-remix.scad
 
 # Various stack arrangements in different heights.
 define make-stack-rule
-fab/$(2)-stack$(1).stl: fab/$(2)_stack_with_support.scad
+fab/thin-stack$(1).stl: fab/thin_stack_with_support.scad
 	openscad -o "$$@" -Ddefault_stack_height=$(1) -Dprint_layer_height=0.25 -Dsupport_wall=1.1 $$<
 endef  # make-stack-rule
 
 # Create all the stack targets
-$(foreach i, 2 3 4 5 6 7 8 9, $(eval $(call make-stack-rule,$(i),thin)))
-$(foreach i, 2 3 4 5 6 7 8 9, $(eval $(call make-stack-rule,$(i),normal)))
+$(foreach i, 2 3 4 5 6 7 8 9, $(eval $(call make-stack-rule,$(i))))
 
 %.dxf : %.ps
 	pstoedit -nb -dt -f "dxf_s:-mm -ctl -splineaspolyline" $^ $@
