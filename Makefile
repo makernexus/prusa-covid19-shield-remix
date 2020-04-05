@@ -5,6 +5,8 @@ ALL_OUTPUT=$(addprefix fab/, \
              bottom_reinforcement.stl) \
              img/version-img.png baseline/maker-nexus-faceshield-cut.dxf
 
+ASSEMBLE_3MF=./gen-3mf/scripts/assemble-3mf.sh
+
 # The 3mf file does not store the relative directory for some reason, so
 # we have to put it here, to be able to easily reload-from-disk
 # Reload-from-disk still needs to be manually (is there a commandline option
@@ -32,9 +34,20 @@ img/version-img.png: fab/thin_shield_no_support.scad
 fab/bottom_reinforcement.stl : baseline/bottom_reinforcement.stl
 	cp $^ $@
 
+# Experimental: assembling a 3mf in the two_shields arrangement using the
+# PETG profile.
+fab/two_shields-PETG.3mf: fab/thin_shield_with_support.3mf
+	 $(ASSEMBLE_3MF) $^ $@ two_shields PETG
+
+fab/two_shields-PLA.3mf: fab/normal_shield_with_support.3mf
+	 $(ASSEMBLE_3MF) $^ $@ two_shields PLA
+
 # -- pattern rules
 # Qualifying with a support suffix, to distinguish from bottom_reinforcement
 %_support.stl: %_support.scad
+	openscad -o $@ $<
+
+%_support.3mf: %_support.scad
 	openscad -o $@ $<
 
 # Create an scad file on-the-fly that calls that particular function
