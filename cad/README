@@ -5,6 +5,25 @@ provided by Prusa.
 License: Creative Commons, Attributionn
 https://creativecommons.org/licenses/by-nc/2.0/
 
+4/5/2020:
+
+Patrick Gunderson's modifications to the Maker Nexus mod:
+
+Goals: Make model easier to print and prepare it for resin casting.
+
+* The headband has been refined to be able to print inverted to slightly reduce material use and increase likelihood of a clean print. 
+* The width of the headband has been optimized to print with 3 perimeters and no infill. It prints successfully with 2 perimeters and no infill but is not as durable.
+* The headband now has a slight draft to make it easier to demold from the silicone casting.
+* New, simpler supports were added to the Fusion 360 file for the vertically centered pins.
+* Stacked headbands were added to the fusion 360 file.
+* Varous corners were rounded over to avoid scratching the wearer and improve print quality.
+* A headband and silicone mold tray have been included with index pins to aid in the molding processs.
+* All changes to the headband made in the headband component will automatically update all other instances as well.
+
+
+
+4/4/2020:
+
 MakerNexus modifications to address local healthcare community feedback.
 
 Initial changes to Adafruit's model of Prusa RC2:
