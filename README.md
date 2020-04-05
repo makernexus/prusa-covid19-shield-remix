@@ -32,7 +32,8 @@ be and use that in the Prusa slicer as support modifier.
 Choose what bests fits your circumstances. GCode is 'ready to go', 3mf allows
 printer adjustments, *.stl allows to use in your own slicer.
 
-Simply get the [latest release](https://github.com/hzeller/prusa-covid19-shield-remix/releases).
+You can just use the files below directly. If you want to work on the repo,
+pull requests are welcome, but please discuss things first on slack.
 
 ### Release content
 
