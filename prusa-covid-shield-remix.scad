@@ -9,7 +9,7 @@ e=0.01;
 
 // Running version number. Should align with v1.x release.
 // Intermediate git release WIP add a '
-version_number="6";
+version_number="7";
 
 support_column_foot_thickness=1.2;  // support-column: this much extra wide foot
 support_wall=0.5; // Use 0.5 if slicer can detect thin walls.

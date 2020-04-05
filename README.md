@@ -36,8 +36,7 @@ Simply get the [latest release](https://github.com/hzeller/prusa-covid19-shield-
 
 ### Release content
 
-We distinguish between 'normal shield' and 'thin shield': the thinner one
-only prints 15mm high (vs the normal 20mm).
+We are only printing the 'thin' shield version now (15mm vs. 20mm before).
 
 #### Cut to the chase: GCode ready to use
 
