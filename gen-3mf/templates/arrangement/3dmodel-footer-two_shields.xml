@@ -1,7 +1,44 @@
  </resources>
  <build>
-  <!-- build-plate center is (125, 105)
-       We move it (-22.5, -4.5) and (+22.5, +4.5)
+  <!--
+       The transformation matrix is an affine transformation matrix, describing
+       one column at a time, but leaving out the last row (as that would have
+       the constants 0, 0, 0 in the first 3 cols and 1 in the last).
+       So we get four columns with 3 values each.
+
+       A typical affine transformation matrix
+       |  a b c tx |
+       |  d e f ty |
+       |  g h j tz |
+       |  0 0 0 1  |
+
+       is represented as
+
+         transform="a d g b e h c f j tx ty tz"
+
+       That means translation is the last three values, scaling
+       rotation and shearing represented by the others.
+
+       So in our example here we have
+
+       ## Rotation
+       Here, we are rotating the object around the Z-axis by about ~134 degrees
+       (cos(134) ~= -0.694, sin(134) ~= 0.719
+
+       So with θ=134 and rotation around Z axis
+
+       | cos(θ) -sin(θ) 0 0 |
+       | sin(θ)  cos(θ) 0 0 |
+       |   0       0    1 0 |
+       |   0       0    0 0 |
+
+       .. in the XML attribute, this matrix looks like
+       transform="cos(θ) sin(θ) 0    -sin(θ) cos(θ) 0    0 0 0 1   tx ty tz"
+
+       ## Translation
+       build-plate center is (125, 105).
+       The object is centered around the z-axis and is 15mm high, so we need to move it by 7.5mm
+       So (tx, ty, tz) are (125-22.5, 105-4.5, 7.5) and (125+22.5, 105+4.5, 7.5)
   -->
   <item objectid="1" transform="-0.693867989 0.720102225 0 -0.720102225 -0.693867989 0 0 0 1 102.5 100.5 7.5" printable="1" />
   <item objectid="1" transform="0.693867989 -0.720102225 0 0.720102225 0.693867989 0 0 0 1 147.5 109.5  7.5" printable="1" />
