@@ -167,11 +167,8 @@ module thin_pla_shield_with_support() {
   print_shield("t", pin_support=true, is_pla=true);
 }
 
-module normal_stack_with_support() {
-  print_stack(default_stack_height, is_thin=false);
-}
 module thin_stack_with_support() {
-  print_stack(default_stack_height, is_thin=true);
+  print_stack(default_stack_height, is_pla=false);
 }
 
 // Local testing call. Can be left in, it will be ignored in the Makefile.
