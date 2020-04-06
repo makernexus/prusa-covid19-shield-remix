@@ -12,7 +12,7 @@ e=0.01;
 version_number="8";
 
 support_column_foot_thickness=1.2;  // support-column: this much extra wide foot
-support_wall=0.5; // Use 0.5 if slicer can detect thin walls.
+support_wall=0.8;  // Should work without 'detect thin walls' in slicer.
 support_column_radius=5.0;
 
 pin_diameter=5;  // mm
