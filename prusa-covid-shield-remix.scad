@@ -22,12 +22,12 @@ print_layer_height=0.3;   // Layer thickness we're printing
 default_stack_height = 3;
 stack_separation=print_layer_height;
 
-// Size of the band depending on if we request it to be 'thin'
-function get_band_thick(is_thin) = is_thin ? 15 : 20;
+function get_band_thick() = 15;  // Always small these days
 
-module maker_nexus_baseline_headband(version_text, is_thin=false) {
-  file = str("baseline/RC2-nexusized-", (is_thin ? "thin":"normal"), ".stl");
-  offset = -get_band_thick(is_thin) / 2;
+module maker_nexus_baseline_headband(version_text, is_pla=true) {
+  is_thin = true;
+  file = str("baseline/RC2-nexusized-", (is_pla ? "thin-pla":"thin"), ".stl");
+  offset = -get_band_thick() / 2;
   text_depth=0.2;
   difference() {
     translate([0, 20, offset]) import(file, convexity=10);
@@ -53,13 +53,13 @@ module maker_nexus_baseline_headband(version_text, is_thin=false) {
 
 // Support for the pins.
 module support_column(angle=0, dist=0, wall_thick=support_wall,
-                      is_first=true, is_last=true, is_thin=false) {
+                      is_first=true, is_last=true, is_pla=false) {
   r=support_column_radius;
   // distances were originally calibrated for r=5mm
   dist=dist-(5-support_column_radius);
-  band_thick = get_band_thick(is_thin);
+  band_thick = get_band_thick();
   level_thick=2*print_layer_height;
-  support_platform = (get_band_thick(is_thin) - pin_diameter)/2 - print_layer_height;
+  support_platform = (get_band_thick() - pin_diameter)/2 - print_layer_height;
   h=is_last ? support_platform : band_thick + stack_separation;
 
   color("yellow") rotate([0, 0, angle]) translate([0, dist, -band_thick/2])
@@ -122,29 +122,29 @@ module support_column(angle=0, dist=0, wall_thick=support_wall,
 // what we found above (angles, positions determined empirically)
 pin_angle_distances = [ [18.5, 94.8], [-18.5, 94.8], [69, 100.5], [-69, 100.5]];
 
-module print_shield(version_text, do_punches=true, pin_support=false,
-                    is_thin=false, is_first=true, is_last=true) {
-  maker_nexus_baseline_headband(version_text, is_thin);
+module print_shield(version_text, do_punches=false, pin_support=false,
+                    is_pla=false, is_first=true, is_last=true) {
+  maker_nexus_baseline_headband(version_text, is_pla);
   // Add support for the pins.
   if (pin_support) {
     for (x = pin_angle_distances) support_column(x[0], x[1],
-                                                 is_thin=is_thin,
+                                                 is_pla=is_pla,
                                                  is_last=is_last,
                                                  is_first=is_first);
   }
 }
 
 // Print a stack of face-shields.
-module print_stack(count=default_stack_height, is_thin=false) {
-  stack_distance = get_band_thick(is_thin) + stack_separation;
-  base_version = str("s", is_thin ? "" : "n");
+module print_stack(count=default_stack_height, is_pla=false) {
+  stack_distance = get_band_thick() + stack_separation;
+  base_version = is_pla ? "s" : "S";
   for (i = [0:1:count-e]) {
     translate([0, 0, i*stack_distance]) {
       is_first = (i == 0);
       is_last = (i == (count - 1));
       print_shield(base_version, pin_support=true,
                    is_first=is_first, is_last=is_last,
-                   is_thin=is_thin, do_punches=!is_thin);
+                   is_pla=is_pla);
     }
   }
 }
@@ -153,17 +153,18 @@ module print_stack(count=default_stack_height, is_thin=false) {
 /* Some functions which we use to generate named
  * STLs directly in the Makefile
  */
-module normal_shield_no_support() {
-  print_shield("N", do_punches=false, pin_support=false);
-}
-module normal_shield_with_support() {
-  print_shield("N", do_punches=false, pin_support=true);
-}
 module thin_shield_no_support() {
-  print_shield("T", do_punches=false, pin_support=false, is_thin=true);
+  print_shield("T", pin_support=false, is_pla=false);
 }
 module thin_shield_with_support() {
-  print_shield("T", do_punches=false, pin_support=true, is_thin=true);
+  print_shield("T", pin_support=true, is_pla=false);
+}
+
+module thin_pla_shield_no_support() {
+  print_shield("t", pin_support=false, is_pla=true);
+}
+module thin_pla_shield_with_support() {
+  print_shield("t", pin_support=true, is_pla=true);
 }
 
 module normal_stack_with_support() {
@@ -174,5 +175,5 @@ module thin_stack_with_support() {
 }
 
 // Local testing call. Can be left in, it will be ignored in the Makefile.
-thin_shield_with_support();
+thin_pla_shield_with_support();
 //print_stack(3, is_thin=true);

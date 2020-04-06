@@ -39,26 +39,25 @@ pull requests are welcome, but please discuss things first on slack.
 
 We are only printing the 'thin' shield version now (15mm vs. 20mm before).
 
+![](./img/covid-headband-build-plate.png)
+
 #### Cut to the chase: GCode ready to use
 
 Recommended
 
-  * For PETG [T7-PETG-Prusa.gcode](https://github.com/makernexus/prusa-covid19-shield-remix/raw/v1.7/fab/T7-PETG-Prusa.gcode) (right click, download or *save link as...*) GCode file placing 2 head-bands on build-plate. Ready to go on Prusa MK3(s) with 0.3mm layer, 100% infill, 240°C temp for PETG printing. This prints two thin bands which is faster to print and works fine with PETG.
+  * For **PETG** [T8-PETG-Prusa.gcode](https://github.com/makernexus/prusa-covid19-shield-remix/raw/v1.8/fab/T8-PETG-Prusa.gcode) (right click, download or *save link as...*) GCode file placing 2 head-bands on build-plate. Ready to go on Prusa MK3(s) with 0.3mm layer, 100% infill, 240°C temp for PETG printing. This prints two thin bands which is faster to print and works fine with PETG.
 
-  * For PLA: [T7-PLA-Prusa.gcode](https://github.com/makernexus/prusa-covid19-shield-remix/raw/v1.7/fab/T7-PLA-Prusa.gcode) (right click, download or *save link as...*) Same for PLA. Currently this is the regular sized band as we still need to test if the thinner band will work with PLA.
+  * For **PLA** [T8-PLA-Prusa.gcode](https://github.com/makernexus/prusa-covid19-shield-remix/raw/v1.8/fab/T8-PLA-Prusa.gcode) (right click, download or *save link as...*) Same for PLA. Currently this is the regular sized band as we still need to test if the thinner band will work with PLA.
 
 The resulting headband has a version imprint on one temple with a letter
-denoting `T` = thin band, `N` = normal band and `s` = stacked, followed
-by a version number.
+denoting `T` = thin band, and `s` = stacked, followed a version number.
 
 ![](img/version-img.png)
 
 #### More files
 
-![](./img/covid-headband-build-plate.png)
-
- * [thin_shield_with_support.stl](https://github.com/makernexus/prusa-covid19-shield-remix/raw/v1.7/fab/thin_shield_with_support.stl) and
-   [thin_shield_no_support.stl](https://github.com/makernexus/prusa-covid19-shield-remix/raw/v1.7/fab/thin_shield_no_support.stl). The *with_support* version has already a support column included
+ * [thin_shield_with_support.stl](https://github.com/makernexus/prusa-covid19-shield-remix/raw/v1.8/fab/thin_shield_with_support.stl) and
+   [thin_shield_no_support.stl](https://github.com/makernexus/prusa-covid19-shield-remix/raw/v1.8/fab/thin_shield_no_support.stl). The *with_support* version has already a support column included
    for printing the pin. Make sure you have **thin wall detection** enabled in
    your slicer. If you choose the *no support* version, you need
    to use your slicer to create support for the mounting pins.

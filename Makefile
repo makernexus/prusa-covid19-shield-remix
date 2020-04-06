@@ -1,5 +1,6 @@
 ALL_OUTPUT=$(addprefix fab/, \
              thin_shield_no_support.stl thin_shield_with_support.stl \
+	     thin_pla_shield_no_support.stl thin_pla_shield_with_support.stl \
              thin-stack2.stl thin-stack3.stl thin-stack4.stl thin-stack5.stl \
              bottom_reinforcement.stl) \
              img/version-img.png baseline/maker-nexus-faceshield-cut.dxf
@@ -8,7 +9,7 @@ ALL_OUTPUT=$(addprefix fab/, \
 # we have to put it here, to be able to easily reload-from-disk
 # Reload-from-disk still needs to be manually (is there a commandline option
 # for prusa-slicer to do that?)
-release: fab/thin_shield_with_support.stl
+release: fab/thin_shield_with_support.stl fab/thin_pla_shield_with_support.stl
 	ln -sf $^ .
 
 # Same for stacks: prepare the STLs and link to local directory where 3mf
