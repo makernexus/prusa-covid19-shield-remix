@@ -9,7 +9,7 @@ ALL_OUTPUT=$(addprefix fab/, \
 # we have to put it here, to be able to easily reload-from-disk
 # Reload-from-disk still needs to be manually (is there a commandline option
 # for prusa-slicer to do that?)
-release: fab/thin_shield_with_support.stl fab/thin_pla_shield_with_support.stl
+release: fab/thin_shield_with_support.stl fab/thin_pla_shield_with_support.stl fab/bottom_reinforcement.stl
 	ln -sf $^ .
 
 # Same for stacks: prepare the STLs and link to local directory where 3mf
