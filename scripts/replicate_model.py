@@ -7,9 +7,9 @@ import os
 import math
 from zipfile import ZipFile
 
-DEBUG_LOGGING = True
-LOCAL_TEMP_DIR = True
-PRESERVE_TEMP_DIR = True
+DEBUG_LOGGING = False
+LOCAL_TEMP_DIR = False
+PRESERVE_TEMP_DIR = False
 
 def log(string=None):
     if (string != None):
@@ -268,6 +268,6 @@ with ZipFile(args.output, 'w') as zipObj:
 
 # All done - delete temp dir
 if (not PRESERVE_TEMP_DIR):
-    shutil.rmtree(temp_dir)
+    shutil.rmtree(temp_project_dir)
 
 log("Complete.")
