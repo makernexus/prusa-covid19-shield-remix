@@ -70,9 +70,9 @@ keepout_options.add_argument("--front_offset", help="Offset from the front of th
 keepout_options.add_argument("--rear_offset", help="Offset from the back of bed (y-axis, back only)", default=0, type=float)
 
 layout_options = arg_parser.add_argument_group('layout options')
-layout_options.add_argument("-x", "--x_spacing", help="X-axis spacing in mm from the start of one instance of the model to the next", default=0, type=float)
+layout_options.add_argument("-x", "--x_spacing", help="X-axis spacing in mm from the start of one instance of the model to the next.  This allows the models to overlap in the X-axis.", default=0, type=float)
 layout_options.add_argument("-X", "--x_gap", help="X-axis gap from the edge of one model to the next", default=0, type=float)
-layout_options.add_argument("-y", "--y_spacing", help="Y-axis spacing in mm from the start of one instance of the model to the next", default=0, type=float)
+layout_options.add_argument("-y", "--y_spacing", help="Y-axis spacing in mm from the start of one instance of the model to the next.  This allows the models to overlap in the Y-axis.", default=0, type=float)
 layout_options.add_argument("-Y", "--y_gap", help="Y-axis gap from the edge of one model to the next", default=0, type=float)
 
 args = arg_parser.parse_args()

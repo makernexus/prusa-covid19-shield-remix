@@ -162,12 +162,14 @@ keepout options:
 layout options:
   -x X_SPACING, --x_spacing X_SPACING
                         X-axis spacing in mm from the start of one instance of
-                        the model to the next
+                        the model to the next. This allows the models to
+                        overlap in the X-axis.
   -X X_GAP, --x_gap X_GAP
                         X-axis gap from the edge of one model to the next
   -y Y_SPACING, --y_spacing Y_SPACING
                         Y-axis spacing in mm from the start of one instance of
-                        the model to the next
+                        the model to the next. This allows the models to
+                        overlap in the Y-axis.
   -Y Y_GAP, --y_gap Y_GAP
                         Y-axis gap from the edge of one model to the next
 ```
@@ -176,7 +178,7 @@ There are only two required options (-m <source model> and -o <output model>).  
 
 All measurements are specified in mm and can be decimal values (e.g. 5.4).  
 
-The objects will be laid out in a grid pattern in rows and columns.  For the layout options, there are two ways the layout will be performed.  If the spacing options is specified, the object will be replicated at the given interval (e.g. every 10mm in the specified axis).  If spacing is not provided, then the gap value will be used and the objects will have the specified gap between them.
+The objects will be laid out in a grid pattern in rows and columns.  For the layout options, there are two ways the layout will be performed.  If the spacing options is specified, the object will be replicated at the given interval (e.g. every 10mm in the specified axis).  This allows each model to overlap the previous one.  If spacing is not provided, then the gap value will be used and the objects will have the specified gap between them.
 
 With the specified bed dimensions, keepout area and layout options, the script will fit as many of the object as possible in the allowed area.
 

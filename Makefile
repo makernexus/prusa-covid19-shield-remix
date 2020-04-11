@@ -35,7 +35,11 @@ fab/bottom_reinforcement.stl : baseline/bottom_reinforcement.stl
 # Use replicate_model script to create a mk3 build plate full of bottom_reinforcement pieces
 # Prints in 7:29
 fab/bottom_reinforcement-full_plate-fast.3mf:
-	python3 scripts/replicate_model.py --model baseline/bottom_reinforcement-single-fast.3mf --output $@ --x_offset 4 --front_offset 10 --rear_offset 5 --x_gap 1 --y_spacing 8.2 
+	python3 scripts/replicate_model.py \
+		--model baseline/bottom_reinforcement-single-fast.3mf \
+		--output $@ \
+		--x_offset 4 --front_offset 10 --rear_offset 5 \
+		--x_gap 1 --y_spacing 8.2 
 
 # -- pattern rules
 # Qualifying with a support suffix, to distinguish from bottom_reinforcement
