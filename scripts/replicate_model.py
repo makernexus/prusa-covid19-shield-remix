@@ -7,9 +7,9 @@ import os
 import math
 from zipfile import ZipFile
 
-DEBUG_LOGGING = True
-LOCAL_TEMP_DIR = True
-PRESERVE_TEMP_DIR = True
+DEBUG_LOGGING = False
+LOCAL_TEMP_DIR = False
+PRESERVE_TEMP_DIR = False
 
 def log(string=None):
     if (string != None):
@@ -222,8 +222,8 @@ for build in list(build_entries):
         build_plate_z = transform_elements[11]
         next_object_id = base_object_id
 
-    transform_elements[9] = str(model_origin[index][0])
-    transform_elements[10] = str(model_origin[index][1])
+    transform_elements[9] = str(round(model_origin[index][0], 2))
+    transform_elements[10] = str(round(model_origin[index][1], 2))
     build.set('transform', ' '.join(transform_elements))
     build.tail = os.linesep + '  '
     index += 1
@@ -236,10 +236,10 @@ resources = model_root.find(resources_tag)
 for i in range(index, (num_rows*num_cols)):
     transform = '1 0 0 0 1 0 0 0 1 ' + str(round(model_origin[i][0], 2)) + ' ' + str(round(model_origin[i][1], 2)) + ' ' + build_plate_z
     
-    new_element = ET.SubElement(build, item_tag, attrib={'id' : str(next_object_id), 'transform' : transform, 'printable' : '1'})
+    new_element = ET.SubElement(build_entries, item_tag, attrib={'objectid' : str(next_object_id), 'transform' : transform, 'printable' : '1'})
     new_element.tail = os.linesep + '  '
     
-    new_object = ET.SubElement(resources, object_tag, attrib={'objectid' : str(next_object_id)})
+    new_object = ET.SubElement(resources, object_tag, attrib={'id' : str(next_object_id)})
     components = ET.SubElement(new_object, components_tag)
     component = ET.SubElement(components, component_tag, attrib={'objectid' : str(base_object_id), 'type' : 'model'})
     new_object.tail = os.linesep + '  '
