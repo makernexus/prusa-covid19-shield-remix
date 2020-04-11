@@ -54,21 +54,26 @@ def measure_model(model_root):
 
 arg_parser = argparse.ArgumentParser()
 
-required_options = arg_parser.add_argument_group('required options')
-required_options.add_argument("-m", "--model", help="Baseline .3mf model file with one instance of the model to be duplicated", required=True)
-required_options.add_argument("-o", "--output", help="Output .3mf model file with one instance of the model to be duplicated")
 arg_parser.add_argument("-w", "--bed_width", help="Width of the print bed in mm (default: 250)", type=int, default=250)
 arg_parser.add_argument("-d", "--bed_depth", help="Depth of the print bed in mm (default: 210)", type=int, default=210)
-arg_parser.add_argument("-x", "--x_spacing", help="X-axis spacing in mm from the start of one instance of the model to the next", default=0, type=float)
-arg_parser.add_argument("-X", "--x_gap", help="X-axis gap from the edge of one model to the next", default=0, type=float)
-arg_parser.add_argument("-y", "--y_spacing", help="Y-axis spacing in mm from the start of one instance of the model to the next", default=0, type=float)
-arg_parser.add_argument("-Y", "--y_gap", help="Y-axis gap from the edge of one model to the next", default=0, type=float)
-arg_parser.add_argument("--x_offset", help="X-axis offset from both edges of the bed", default=0, type=float)
-arg_parser.add_argument("--y_offset", help="Y-axis offset from both edges of the bed", default=0, type=float)
-arg_parser.add_argument("--left_offset", help="Offset from the left side of the bed (x-axis, left side only)", default=0, type=float)
-arg_parser.add_argument("--right_offset", help="Offset from the right side of the bed (x-axis, right side only)", default=0, type=float)
-arg_parser.add_argument("--front_offset", help="Offset from the front of the bed (y-axis, front only)", default=0, type=float)
-arg_parser.add_argument("--rear_offset", help="Offset from the back of bed (y-axis, back only)", default=0, type=float)
+
+required_options = arg_parser.add_argument_group('required options')
+required_options.add_argument("-m", "--model", help="Baseline .3mf model file with one instance of the model to be duplicated", required=True)
+required_options.add_argument("-o", "--output", help="Output .3mf model file with one instance of the model to be duplicated", required=True)
+
+keepout_options = arg_parser.add_argument_group('keepout options')
+keepout_options.add_argument("--x_offset", help="X-axis offset from left and right edges of the bed", default=0, type=float)
+keepout_options.add_argument("--y_offset", help="Y-axis offset from front and rear edges of the bed", default=0, type=float)
+keepout_options.add_argument("--left_offset", help="Offset from the left side of the bed (x-axis, left side only)", default=0, type=float)
+keepout_options.add_argument("--right_offset", help="Offset from the right side of the bed (x-axis, right side only)", default=0, type=float)
+keepout_options.add_argument("--front_offset", help="Offset from the front of the bed (y-axis, front only)", default=0, type=float)
+keepout_options.add_argument("--rear_offset", help="Offset from the back of bed (y-axis, back only)", default=0, type=float)
+
+layout_options = arg_parser.add_argument_group('layout options')
+layout_options.add_argument("-x", "--x_spacing", help="X-axis spacing in mm from the start of one instance of the model to the next.  This allows the models to overlap in the X-axis.", default=0, type=float)
+layout_options.add_argument("-X", "--x_gap", help="X-axis gap from the edge of one model to the next", default=0, type=float)
+layout_options.add_argument("-y", "--y_spacing", help="Y-axis spacing in mm from the start of one instance of the model to the next.  This allows the models to overlap in the Y-axis.", default=0, type=float)
+layout_options.add_argument("-Y", "--y_gap", help="Y-axis gap from the edge of one model to the next", default=0, type=float)
 
 args = arg_parser.parse_args()
 
