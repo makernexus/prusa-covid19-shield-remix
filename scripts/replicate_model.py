@@ -7,9 +7,9 @@ import os
 import math
 from zipfile import ZipFile
 
-DEBUG_LOGGING = False
-LOCAL_TEMP_DIR = False
-PRESERVE_TEMP_DIR = False
+DEBUG_LOGGING = True
+LOCAL_TEMP_DIR = True
+PRESERVE_TEMP_DIR = True
 
 def log(string=None):
     if (string != None):
@@ -60,9 +60,9 @@ required_options.add_argument("-o", "--output", help="Output .3mf model file wit
 arg_parser.add_argument("-w", "--bed_width", help="Width of the print bed in mm (default: 250)", type=int, default=250)
 arg_parser.add_argument("-d", "--bed_depth", help="Depth of the print bed in mm (default: 210)", type=int, default=210)
 arg_parser.add_argument("-x", "--x_spacing", help="X-axis spacing in mm from the start of one instance of the model to the next", default=0, type=float)
-arg_parser.add_argument("-X", "--x_gap", help="X-axis gap from the edge of one model to the next", default=5, type=float)
+arg_parser.add_argument("-X", "--x_gap", help="X-axis gap from the edge of one model to the next", default=0, type=float)
 arg_parser.add_argument("-y", "--y_spacing", help="Y-axis spacing in mm from the start of one instance of the model to the next", default=0, type=float)
-arg_parser.add_argument("-Y", "--y_gap", help="Y-axis gap from the edge of one model to the next", default=5, type=float)
+arg_parser.add_argument("-Y", "--y_gap", help="Y-axis gap from the edge of one model to the next", default=0, type=float)
 arg_parser.add_argument("--x_offset", help="X-axis offset from both edges of the bed", default=0, type=float)
 arg_parser.add_argument("--y_offset", help="Y-axis offset from both edges of the bed", default=0, type=float)
 arg_parser.add_argument("--left_offset", help="Offset from the left side of the bed (x-axis, left side only)", default=0, type=float)
