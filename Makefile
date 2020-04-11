@@ -2,7 +2,7 @@ ALL_OUTPUT=$(addprefix fab/, \
              thin_shield_no_support.stl thin_shield_with_support.stl \
 	     thin_pla_shield_no_support.stl thin_pla_shield_with_support.stl \
              thin-stack2.stl thin-stack3.stl thin-stack4.stl thin-stack5.stl \
-             bottom_reinforcement.stl) \
+             bottom_reinforcement.stl bottom_reinforcement-full_plate-fast.3mf) \
              img/version-img.png baseline/maker-nexus-faceshield-cut.dxf
 
 # The 3mf file does not store the relative directory for some reason, so
@@ -31,6 +31,11 @@ img/version-img.png: fab/thin_shield_no_support.scad baseline/RC2-nexusized-thin
 # The bottom reinforcment is just the same as the original.
 fab/bottom_reinforcement.stl : baseline/bottom_reinforcement.stl
 	cp $^ $@
+
+# Use replicate_model script to create a mk3 build plate full of bottom_reinforcement pieces
+# Prints in 7:29
+fab/bottom_reinforcement-full_plate-fast.3mf:
+	python scripts/replicate_model.py --model baseline/bottom_reinforcement-single-fast.3mf --output $@ --x_gap 1 --y_spacing 8.2 --x_offset 4 --front_offset 10
 
 # -- pattern rules
 # Qualifying with a support suffix, to distinguish from bottom_reinforcement
