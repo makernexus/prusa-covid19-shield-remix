@@ -39,7 +39,7 @@ fab/bottom_reinforcement-full_plate-fast.3mf:
 		--model baseline/bottom_reinforcement-single-fast.3mf \
 		--output $@ \
 		--x_offset 4 --front_offset 10 --rear_offset 5 \
-		--x_gap 1 --y_spacing 8.2 
+		--x_gap 1 --y_spacing 8.2
 
 # -- pattern rules
 # Qualifying with a support suffix, to distinguish from bottom_reinforcement

@@ -1,7 +1,8 @@
 MakerNexus local modifications
 ------------------------------
 
-At [MakerNexus], we're working on making as many face-shields as possible;
+At [MakerNexus], we're working on
+[making as many face-shields as possible][covidshieldnexus] as possible;
 They will be in dire demand very soon and we got requests of thousands of them.
 MakerNexus is coordinating the contact with the local hospitals and
 as well the effort of non-Members of the maker-space to 3D print. We
@@ -176,7 +177,7 @@ layout options:
 
 There are only two required options (-m <source model> and -o <output model>).  The rest control the location on the bed / keepout areas where the objects can be laid out and then control the replication process itself.
 
-All measurements are specified in mm and can be decimal values (e.g. 5.4).  
+All measurements are specified in mm and can be decimal values (e.g. 5.4).
 
 The objects will be laid out in a grid pattern in rows and columns.  For the layout options, there are two ways the layout will be performed.  If the spacing options is specified, the object will be replicated at the given interval (e.g. every 10mm in the specified axis).  This allows each model to overlap the previous one.  If spacing is not provided, then the gap value will be used and the objects will have the specified gap between them.
 
@@ -198,7 +199,7 @@ The default bed size (250 x 210) will be used with 4mm of space on the left and 
 This is what the output looks like:
 
 ```
-python3 scripts/replicate_model.py --model baseline/bottom_reinforcement-single-fast.3mf --output fab/bottom_reinforcement-full_plate-fast.3mf --x_offset 4 --front_offset 10 --rear_offset 5 --x_gap 1 --y_spacing 8.2 
+python3 scripts/replicate_model.py --model baseline/bottom_reinforcement-single-fast.3mf --output fab/bottom_reinforcement-full_plate-fast.3mf --x_offset 4 --front_offset 10 --rear_offset 5 --x_gap 1 --y_spacing 8.2
 replicate_model: Bed dimensions: [250 x 210]
 replicate_model: Bed keep-out:
 replicate_model:                 Rear: 5.0
@@ -237,6 +238,7 @@ This is based on the Prusa design
 https://www.prusaprinters.org/prints/25857-prusa-protective-face-shield-rc2
 
 [MakerNexus]: https://www.makernexus.com/
+[covidshieldnexus]: https://www.covidshieldnexus.org/
 [prusa-rc3]: https://www.prusaprinters.org/prints/25857-prusa-protective-face-shield-rc3
 [CC-BY-NC]: https://creativecommons.org/licenses/by-nc/4.0/
 [project page]: http://makernexuswiki.com/index.php?title=3D_printed_face_shields
